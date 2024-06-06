@@ -49,7 +49,7 @@ pub struct OpenRPC {
     /// > REQUIRED.
     /// > The available methods for the API.
     /// > While it is required, the array may be empty (to handle security filtering, for example).
-    pub methods: Vec<Method>,
+    pub methods: Vec<ReferenceOr<Method>>,
     /// > An element to hold various schemas for the specification.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub components: Option<Components>,
@@ -211,12 +211,12 @@ pub struct Method {
     /// > The list MUST NOT include duplicated parameters and therefore require name to be unique.
     /// > The list can use the Reference Object to link to parameters that are defined by the Content Descriptor Object.
     /// > All optional params (content descriptor objects with “required”: false) MUST be positioned after all required params in the list.
-    pub params: Vec<ContentDescriptor>,
+    pub params: Vec<ReferenceOr<ContentDescriptor>>,
     /// > The description of the result returned by the method.
     /// > If defined, it MUST be a Content Descriptor or Reference Object.
     /// > If undefined, the method MUST only be used as a notification.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub result: Option<ContentDescriptor>,
+    pub result: Option<ReferenceOr<ContentDescriptor>>,
     /// > Declares this method to be deprecated.
     /// > Consumers SHOULD refrain from usage of the declared method.
     /// > Default value is `false`.
