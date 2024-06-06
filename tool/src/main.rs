@@ -49,7 +49,7 @@ fn main() -> anyhow::Result<()> {
                     .duplicates()
                     .collect(),
             ) {
-                bail!(
+                eprintln!(
                     "the following method names are duplicated: {}",
                     dups.join(", ")
                 )
@@ -64,7 +64,7 @@ fn main() -> anyhow::Result<()> {
                         .duplicates()
                         .collect(),
                 ) {
-                    bail!(
+                    eprintln!(
                         "the following parameter names on method {} are duplicated: {}",
                         method.name,
                         dups.join(", ")
@@ -80,7 +80,7 @@ fn main() -> anyhow::Result<()> {
                             .map(|it| it.name.as_str())
                             .collect(),
                     ) {
-                        bail!("the following required parameters on method {} follow the optional parameter {}: {}", method.name, name, after.join(", "))
+                        eprintln!("the following required parameters on method {} follow the optional parameter {}: {}", method.name, name, after.join(", "))
                     }
                 }
             }
