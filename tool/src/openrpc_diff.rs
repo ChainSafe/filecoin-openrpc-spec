@@ -4,22 +4,20 @@ use std::{
         btree_set::{Difference, Intersection},
         BTreeMap, BTreeSet,
     },
-    fs::File,
-    path::Path,
 };
 
-use crate::openrpc_types::{ContentDescriptor, Method, OpenRPC, SpecificationExtensions};
-use anyhow::Context as _;
+use crate::openrpc_resolve::{ResolveError, ResolvedMethod};
+use crate::openrpc_types::{ContentDescriptor, OpenRPC, SpecificationExtensions};
 use itertools::{EitherOrBoth, Itertools as _};
 use nunny::NonEmpty;
 use schemars::schema::{RootSchema, Schema};
 use serde::Serialize;
 use serde_json::Value;
-pub use summary::{Change, ChangeKind, ContentDescriptorChange, MethodChange, Subject, Summary};
+pub use summary::*;
 
-pub fn diff(left: OpenRPC, right: OpenRPC) -> Summary {
-    let (left_definitions, left_methods) = prepare(left);
-    let (right_definitions, right_methods) = prepare(right);
+pub fn diff(left: OpenRPC, right: OpenRPC) -> Result<Summary, ResolveError> {
+    let (left_definitions, left_methods) = prepare(left)?;
+    let (right_definitions, right_methods) = prepare(right)?;
 
     let left_names = left_methods.keys().collect();
     let right_names = right_methods.keys().collect();
@@ -77,12 +75,12 @@ pub fn diff(left: OpenRPC, right: OpenRPC) -> Summary {
             },
         );
     }
-    Summary {
+    Ok(Summary {
         equivalent: compatible,
         different: methods,
         left: only_left.map(|it| (*it).clone()).collect(),
         right: only_right.map(|it| (*it).clone()).collect(),
-    }
+    })
 }
 
 const NO_DESCRIPTOR: &ContentDescriptor = &ContentDescriptor {
@@ -98,22 +96,31 @@ const NO_DESCRIPTOR: &ContentDescriptor = &ContentDescriptor {
 #[allow(clippy::type_complexity)]
 fn prepare(
     mut document: OpenRPC,
-) -> (
-    BTreeMap<String, Schema>,
-    BTreeMap<String, (Vec<ContentDescriptor>, Option<ContentDescriptor>)>,
-) {
+) -> Result<
+    (
+        BTreeMap<String, Schema>,
+        BTreeMap<String, (Vec<ContentDescriptor>, Option<ContentDescriptor>)>,
+    ),
+    ResolveError,
+> {
     rewrite_schema_references::open_rpc(&mut document);
+    let methods = crate::openrpc_resolve::methods(document.components.as_ref(), document.methods)?
+        .into_iter()
+        .map(
+            |ResolvedMethod {
+                 name,
+                 params,
+                 result,
+                 ..
+             }| (name, (params, result)),
+        )
+        .collect();
     let definitions = document
         .components
         .unwrap_or_default()
         .schemas
         .unwrap_or_default();
-    let methods = document
-        .methods
-        .into_iter()
-        .map(method)
-        .collect::<BTreeMap<_, _>>();
-    (definitions, methods)
+    Ok((definitions, methods))
 }
 
 #[derive(Debug, Serialize)]
@@ -174,25 +181,7 @@ fn venn<'a, T: Ord>(
     (only_left, common, only_right)
 }
 
-fn method(method: Method) -> (String, (Vec<ContentDescriptor>, Option<ContentDescriptor>)) {
-    let Method {
-        name,
-        tags: _,
-        summary: _,
-        description: _,
-        external_docs: _,
-        params,
-        result,
-        deprecated: _,
-        servers: _,
-        errors: _,
-        param_structure: _,
-        examples: _,
-        extensions: _,
-    } = method;
-    (name, (params, result))
-}
-
+/// Human-friendly report of differences between two schemas
 mod summary {
     use super::RequiredChange;
     use std::collections::BTreeMap;
@@ -331,8 +320,13 @@ mod summary {
     }
 }
 
+/// There are two kinds of `$ref`s:
+/// - those defined in JSON Schema
+/// - this defined in Open-RPC
+///
+/// We want to rewrite the former for [`json_schema_diff`].
 mod rewrite_schema_references {
-    use crate::openrpc_types::{Components, ContentDescriptor, Method, OpenRPC};
+    use crate::openrpc_types::{Components, ContentDescriptor, Method, OpenRPC, ReferenceOr};
     use either::Either;
     use schemars::schema::{
         ArrayValidation, ObjectValidation, Schema, SchemaObject, SingleOrVec, SubschemaValidation,
@@ -349,23 +343,32 @@ mod rewrite_schema_references {
             external_docs: _,
             extensions: _,
         } = node;
-        for Method {
-            name: _,
-            tags: _,
-            summary: _,
-            description: _,
-            external_docs: _,
-            params,
-            result,
-            deprecated: _,
-            servers: _,
-            errors: _,
-            param_structure: _,
-            examples: _,
-            extensions: _,
-        } in methods
-        {
-            params.iter_mut().chain(result).for_each(content_descriptor);
+        for method in methods {
+            if let ReferenceOr::Item(Method {
+                name: _,
+                tags: _,
+                summary: _,
+                description: _,
+                external_docs: _,
+                params,
+                result,
+                deprecated: _,
+                servers: _,
+                errors: _,
+                param_structure: _,
+                examples: _,
+                extensions: _,
+            }) = method
+            {
+                params
+                    .iter_mut()
+                    .chain(result)
+                    .filter_map(|it| match it {
+                        ReferenceOr::Reference(_) => None,
+                        ReferenceOr::Item(it) => Some(it),
+                    })
+                    .for_each(content_descriptor)
+            }
         }
         if let Some(Components {
             content_descriptors,

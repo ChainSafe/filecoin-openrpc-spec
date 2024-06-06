@@ -1,10 +1,17 @@
-mod diff;
+mod openrpc_diff;
+mod openrpc_resolve;
 mod openrpc_types;
+
 use anyhow::{bail, Context as _};
 use clap::Parser;
 use itertools::Itertools as _;
-use openrpc_types::{Components, OpenRPC};
-use std::{fs::File, path::PathBuf};
+use openrpc_types::OpenRPC;
+use serde::de::DeserializeOwned;
+use std::{
+    fs::File,
+    io,
+    path::{Path, PathBuf},
+};
 
 #[derive(Parser)]
 enum Args {
@@ -20,18 +27,23 @@ enum Openrpc {
     /// - $ref
     /// - links, runtime expressions
     /// - component keys are idents
-    Validate { path: PathBuf },
+    /// - error codes are unique
+    Validate {
+        path: PathBuf,
+    },
+    Diff {
+        left: PathBuf,
+        right: PathBuf,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
     match Args::parse() {
         Args::Openrpc(Openrpc::Validate { path }) => {
-            let document = serde_path_to_error::deserialize::<_, OpenRPC>(
-                &mut serde_json::Deserializer::from_reader(File::open(path)?),
-            )?;
+            let document = load_json::<OpenRPC>(path)?;
+            let methods = openrpc_resolve::methods(document.components.as_ref(), document.methods)?;
             if let Ok(dups) = nunny::Vec::new(
-                document
-                    .methods
+                methods
                     .iter()
                     .map(|it| it.name.as_str())
                     .duplicates()
@@ -43,7 +55,7 @@ fn main() -> anyhow::Result<()> {
                 )
             };
 
-            for method in &document.methods {
+            for method in &methods {
                 if let Ok(dups) = nunny::Vec::new(
                     method
                         .params
@@ -75,5 +87,20 @@ fn main() -> anyhow::Result<()> {
 
             Ok(())
         }
+        Args::Openrpc(Openrpc::Diff { left, right }) => {
+            let summary = openrpc_diff::diff(load_json(left)?, load_json(right)?)?;
+            serde_json::to_writer_pretty(io::stdout(), &summary)?;
+            Ok(())
+        }
     }
+}
+
+fn load_json<T: DeserializeOwned>(path: impl AsRef<Path>) -> anyhow::Result<T> {
+    fn imp<T: DeserializeOwned>(path: &Path) -> anyhow::Result<T> {
+        Ok(serde_path_to_error::deserialize(
+            &mut serde_json::Deserializer::from_reader(File::open(path)?),
+        )?)
+    }
+    imp::<T>(path.as_ref())
+        .with_context(|| format!("couldn't load json from file {}", path.as_ref().display()))
 }
