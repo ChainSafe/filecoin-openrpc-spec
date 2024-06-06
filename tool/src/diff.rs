@@ -5,42 +5,21 @@ use std::{
         BTreeMap, BTreeSet,
     },
     fs::File,
-    io,
-    path::{Path, PathBuf},
+    path::Path,
 };
 
+use crate::openrpc_types::{ContentDescriptor, Method, OpenRPC, SpecificationExtensions};
 use anyhow::Context as _;
-use clap::Parser;
 use itertools::{EitherOrBoth, Itertools as _};
-use json_schema_diff::Change;
 use nunny::NonEmpty;
-use openrpc_types::{ContentDescriptor, Method, OpenRPC, SpecificationExtensions};
 use schemars::schema::{RootSchema, Schema};
 use serde::Serialize;
 use serde_json::Value;
-use summary::{MethodChange, Summary};
+pub use summary::{Change, ChangeKind, ContentDescriptorChange, MethodChange, Subject, Summary};
 
-const NO_DESCRIPTOR: &ContentDescriptor = &ContentDescriptor {
-    name: String::new(),
-    summary: None,
-    description: None,
-    required: Some(false),
-    schema: Schema::Bool(false),
-    deprecated: None,
-    extensions: SpecificationExtensions(BTreeMap::new()),
-};
-
-#[derive(Parser)]
-struct Args {
-    left: PathBuf,
-    right: PathBuf,
-}
-
-fn main() -> anyhow::Result<()> {
-    let Args { left, right } = Args::parse();
-
-    let (left_definitions, left_methods) = prepare(left)?;
-    let (right_definitions, right_methods) = prepare(right)?;
+pub fn diff(left: OpenRPC, right: OpenRPC) -> Summary {
+    let (left_definitions, left_methods) = prepare(left);
+    let (right_definitions, right_methods) = prepare(right);
 
     let left_names = left_methods.keys().collect();
     let right_names = right_methods.keys().collect();
@@ -69,13 +48,13 @@ fn main() -> anyhow::Result<()> {
                 )
                 .enumerate()
                 .flat_map(|(ix, (l, r))| {
-                    diff(l, r, &left_definitions, &right_definitions).map(|it| (ix, it))
+                    diff_one(l, r, &left_definitions, &right_definitions).map(|it| (ix, it))
                 })
                 .collect(),
         )
         .ok();
 
-        let result_diff = diff(
+        let result_diff = diff_one(
             left_return.as_ref().unwrap_or(NO_DESCRIPTOR),
             right_return.as_ref().unwrap_or(NO_DESCRIPTOR),
             &left_definitions,
@@ -98,27 +77,31 @@ fn main() -> anyhow::Result<()> {
             },
         );
     }
-
-    let summary = Summary {
+    Summary {
         equivalent: compatible,
         different: methods,
         left: only_left.map(|it| (*it).clone()).collect(),
         right: only_right.map(|it| (*it).clone()).collect(),
-    };
-
-    serde_yaml::to_writer(io::stdout(), &summary)?;
-
-    Ok(())
+    }
 }
+
+const NO_DESCRIPTOR: &ContentDescriptor = &ContentDescriptor {
+    name: String::new(),
+    summary: None,
+    description: None,
+    required: Some(false),
+    schema: Schema::Bool(false),
+    deprecated: None,
+    extensions: SpecificationExtensions(BTreeMap::new()),
+};
 
 #[allow(clippy::type_complexity)]
 fn prepare(
-    path: PathBuf,
-) -> anyhow::Result<(
+    mut document: OpenRPC,
+) -> (
     BTreeMap<String, Schema>,
     BTreeMap<String, (Vec<ContentDescriptor>, Option<ContentDescriptor>)>,
-)> {
-    let mut document = read(path)?;
+) {
     rewrite_schema_references::open_rpc(&mut document);
     let definitions = document
         .components
@@ -130,24 +113,24 @@ fn prepare(
         .into_iter()
         .map(method)
         .collect::<BTreeMap<_, _>>();
-    Ok((definitions, methods))
+    (definitions, methods)
 }
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "kebab-case")]
-enum RequiredChange {
+pub enum RequiredChange {
     /// left was [`ContentDescriptor::required`], but right was not
     Left,
     /// right was [`ContentDescriptor::required`], but left was not
     Right,
 }
 
-fn diff(
+fn diff_one(
     left: &ContentDescriptor,
     right: &ContentDescriptor,
     left_definitions: &BTreeMap<String, Schema>,
     right_definitions: &BTreeMap<String, Schema>,
-) -> Option<EitherOrBoth<NonEmpty<Vec<Change>>, RequiredChange>> {
+) -> Option<EitherOrBoth<NonEmpty<Vec<json_schema_diff::Change>>, RequiredChange>> {
     fn json(schema: &Schema, definitions: &BTreeMap<String, Schema>) -> Value {
         serde_json::to_value(&RootSchema {
             meta_schema: None,
@@ -208,14 +191,6 @@ fn method(method: Method) -> (String, (Vec<ContentDescriptor>, Option<ContentDes
         extensions: _,
     } = method;
     (name, (params, result))
-}
-
-fn read(path: impl AsRef<Path>) -> anyhow::Result<OpenRPC> {
-    let file = File::open(path.as_ref())
-        .context(format!("couldn't open file {}", path.as_ref().display()))?;
-    serde_path_to_error::deserialize(&mut serde_json::Deserializer::from_reader(file)).context(
-        format!("couldn't deserialize file {}", path.as_ref().display()),
-    )
 }
 
 mod summary {
@@ -357,8 +332,8 @@ mod summary {
 }
 
 mod rewrite_schema_references {
+    use crate::openrpc_types::{Components, ContentDescriptor, Method, OpenRPC};
     use either::Either;
-    use openrpc_types::{Components, ContentDescriptor, Method, OpenRPC};
     use schemars::schema::{
         ArrayValidation, ObjectValidation, Schema, SchemaObject, SingleOrVec, SubschemaValidation,
     };
