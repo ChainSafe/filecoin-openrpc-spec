@@ -1,0 +1,3826 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "forest",
+    "version": "0.18.0"
+  },
+  "methods": [
+    {
+      "name": "Filecoin.ChainGetMessage",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the message with the specified CID",
+      "params": [
+        {
+          "name": "msg_cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainGetMessage::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Message"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainReadObj",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "reads ipld nodes referenced by the specified CID from chain blockstore and returns raw bytes.",
+      "params": [
+        {
+          "name": "cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainReadObj::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Base64String"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainHasObj",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "checks if a given CID exists in the chain blockstore",
+      "params": [
+        {
+          "name": "cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainHasObj::Result",
+        "required": true,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainGetTipSetByHeight",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the tipset at the specified height",
+      "params": [
+        {
+          "name": "height",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainGetTipSetByHeight::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Tipset"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainHead",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the chain head (ie. the heaviest tipset)",
+      "params": [],
+      "result": {
+        "name": "Filecoin.ChainHead::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Tipset"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainGetBlock",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the block with the specified CID",
+      "params": [
+        {
+          "name": "cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainGetBlock::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BlockHeader"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainGetTipSet",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the tipset with the specified CID",
+      "params": [
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainGetTipSet::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Tipset"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainTipSetWeight",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the weight of the specified tipset",
+      "params": [
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainTipSetWeight::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt2"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.GasEstimateGasLimit",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the estimated gas limit for the given parameters",
+      "params": [
+        {
+          "name": "msg",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Message"
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.GasEstimateGasLimit::Result",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.GasEstimateMessageGas",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the estimated gas for the given parameters",
+      "params": [
+        {
+          "name": "msg",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Message"
+          }
+        },
+        {
+          "name": "spec",
+          "required": false,
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MessageSendSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.GasEstimateMessageGas::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Message"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.GasEstimateFeeCap",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the estimated fee cap for the given parameters",
+      "params": [
+        {
+          "name": "message",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Message"
+          }
+        },
+        {
+          "name": "max_queue_blocks",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.GasEstimateFeeCap::Result",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.GasEstimateGasPremium",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the estimated gas premium for the given parameters",
+      "params": [
+        {
+          "name": "nblocksincl",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "sender",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "gas_limit",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.GasEstimateGasPremium::Result",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MinerCreateBlock",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "block_template",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/BlockTemplate"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MinerCreateBlock::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BlockMessage"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MinerGetBaseInfo",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "epoch",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MinerGetBaseInfo::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/MiningBaseInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MpoolGetNonce",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the current nonce for the specified address",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MpoolGetNonce::Result",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MpoolPending",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the pending messages for a given tipset",
+      "params": [
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MpoolPending::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MpoolPush",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Adds a signed message into the message pool",
+      "params": [
+        {
+          "name": "msg",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/SignedMessage"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MpoolPush::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Cid"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetAddrsListen",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Return list of listening addresses and peer ID",
+      "params": [],
+      "result": {
+        "name": "Filecoin.NetAddrsListen::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/AddrInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetPeers",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Return list of currently connected peers",
+      "params": [],
+      "result": {
+        "name": "Filecoin.NetPeers::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/AddrInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetConnect",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Connect to a specified peer",
+      "params": [
+        {
+          "name": "info",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/AddrInfo"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.NetConnect::Result",
+        "required": true,
+        "schema": {
+          "type": "null"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetDisconnect",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Disconnect from the specified peer",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.NetDisconnect::Result",
+        "required": true,
+        "schema": {
+          "type": "null"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetAgentVersion",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns agent version string",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.NetAgentVersion::Result",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.NetProtectAdd",
+      "tags": [
+        {
+          "name": "v1"
+        }
+      ],
+      "params": [
+        {
+          "name": "acl",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.NetProtectAdd::Result",
+        "required": true,
+        "schema": {
+          "type": "null"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateCall",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Runs the given message and returns its result without any persisted changes. StateCall applies the message to the tipset's parent state. The message is not applied on-top-of the messages in the passed-in tipset.",
+      "params": [
+        {
+          "name": "message",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Message"
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateCall::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ApiInvocResult"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetBeaconEntry",
+      "tags": [
+        {
+          "name": "v1"
+        }
+      ],
+      "description": "Returns the beacon entry for the given epoch. If the entry has not yet been produced, the call will block until the entry becomes available.",
+      "params": [
+        {
+          "name": "epoch",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetBeaconEntry::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BeaconEntry"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateListMessages",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "looks back and returns all messages with a matching to or from address, stopping at the given height.",
+      "params": [
+        {
+          "name": "message_filter",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/MessageFilter"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        },
+        {
+          "name": "max_height",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateListMessages::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateSectorGetInfo",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "StateSectorGetInfo returns the on-chain info for the specified miner's sector. Returns null in case the sector info isn't found. NOTE: returned info.Expiration may not be accurate in some cases, use StateSectorExpiration to get accurate expiration epoch.",
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateSectorGetInfo::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SectorOnChainInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateSectorPreCommitInfo",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "StateSectorPreCommitInfo returns the PreCommit info for the specified miner's sector. Returns null and no error if the sector isn't precommitted. Note that the sector number may be allocated while PreCommitInfo is nil. This means that either allocated sector numbers were compacted, and the sector number was marked as allocated in order to reduce size of the allocated sectors bitfield, or that the sector was precommitted, but the precommit has expired.",
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateSectorPreCommitInfo::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SectorPreCommitOnChainInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateAccountKey",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the public key address of the given ID address for secp and bls accounts",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateAccountKey::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Address2"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetActor",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the specified actor's nonce and balance.",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetActor::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/ActorState2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerInfo",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns info about the specified miner",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerInfo::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MinerInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerActiveSectors",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns info about sectors that a given miner is actively proving",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerActiveSectors::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/SectorOnChainInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerPartitions",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns all partitions in the specified deadline",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "deadline_index",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerPartitions::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::rpc::types::MinerPartitions"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerSectors",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns info about the given miner's sectors. If the filter bitfield is nil, all sectors are included",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sectors",
+          "required": false,
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BitField"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerSectors::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/SectorOnChainInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerPower",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the power of the indicated miner",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerPower::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MinerPower"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerDeadlines",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns all the proving deadlines for the given miner",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerDeadlines::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::rpc::types::ApiDeadline"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerProvingDeadline",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "calculates the deadline at some epoch for a proving period and returns the deadline-related calculations.",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerProvingDeadline::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ApiDeadlineInfo"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerFaults",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns a bitfield indicating the faulty sectors of the given miner",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerFaults::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BitField"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerRecoveries",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns a bitfield indicating the recovering sectors of the given miner",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerRecoveries::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BitField"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerAvailableBalance",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the portion of a miner's balance that can be withdrawn or spent",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerAvailableBalance::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerInitialPledgeCollateral",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the initial pledge collateral for the specified miner's sector",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_pre_commit_info",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerInitialPledgeCollateral::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetRandomnessFromTickets",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "sample the chain for randomness",
+      "params": [
+        {
+          "name": "personalization",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "rand_epoch",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "entropy",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Base64String"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetRandomnessFromTickets::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Base64String"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetRandomnessFromBeacon",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "samples the beacon for randomness",
+      "params": [
+        {
+          "name": "personalization",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "rand_epoch",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "entropy",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Base64String"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetRandomnessFromBeacon::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Base64String"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateReadState",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the indicated actor's state",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateReadState::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ApiActorState"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateVerifiedClientStatus",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the data cap for the given address. Returns nil if there is no entry in the data cap table for the address.",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateVerifiedClientStatus::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/BigInt2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateListMiners",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the addresses of every miner that has claimed power in the Power Actor",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateListMiners::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateNetworkVersion",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the network version at the given tipset",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateNetworkVersion::Result",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMarketBalance",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "looks up the Escrow and Locked balances of the given address in the Storage Market",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMarketBalance::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MarketBalance"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMarketParticipants",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the Escrow and Locked balances of every participant in the Storage Market",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMarketParticipants::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/MarketBalance"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMarketDeals",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns information about every deal in the Storage Market",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMarketDeals::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/ApiMarketDeal"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateDealProviderCollateralBounds",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the min and max collateral a storage provider can issue. It takes the deal size and verified status as parameters.",
+      "params": [
+        {
+          "name": "size",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "verified",
+          "required": true,
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateDealProviderCollateralBounds::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/DealCollateralBounds"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMarketStorageDeal",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns information about the specified deal",
+      "params": [
+        {
+          "name": "deal_id",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMarketStorageDeal::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ApiMarketDeal"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateWaitMsg",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "See comment",
+      "params": [
+        {
+          "name": "message_cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        },
+        {
+          "name": "confidence",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateWaitMsg::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MessageLookup"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateSearchMsg",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "See comment",
+      "params": [
+        {
+          "name": "message_cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateSearchMsg::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MessageLookup"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerPreCommitDepositForPower",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_pre_commit_info",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerPreCommitDepositForPower::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateVerifierStatus",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the data cap for the given address. Returns nil if there is no entry in the data cap table for the address.",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateVerifierStatus::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/BigInt2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetClaim",
+      "tags": [
+        {
+          "name": "v1"
+        }
+      ],
+      "description": "returns the claim for a given address and claim ID",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "claim_id",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetClaim::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/ClaimLotusJson"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateSectorExpiration",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns epoch at which given sector will expire",
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateSectorExpiration::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SectorExpiration"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.WalletList",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "lists all the addresses in the wallet.",
+      "params": [],
+      "result": {
+        "name": "Filecoin.WalletList::Result",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+        }
+      },
+      "paramStructure": "by-position"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ActorState": {
+        "type": "object",
+        "required": [
+          "Balance",
+          "Code",
+          "Head",
+          "Nonce"
+        ],
+        "properties": {
+          "Balance": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Code": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "DelegatedAddress": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
+          "Head": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Nonce": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "ActorState2": {
+        "type": "object",
+        "required": [
+          "Balance",
+          "Code",
+          "Head",
+          "Nonce"
+        ],
+        "properties": {
+          "Balance": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Code": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "DelegatedAddress": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
+          "Head": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Nonce": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "ActorTrace": {
+        "type": "object",
+        "required": [
+          "Id",
+          "State"
+        ],
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "State": {
+            "$ref": "#/components/schemas/ActorState"
+          }
+        }
+      },
+      "AddrInfo": {
+        "type": "object",
+        "required": [
+          "Addrs",
+          "ID"
+        ],
+        "properties": {
+          "Addrs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "ID": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "string"
+      },
+      "Address2": {
+        "type": "string"
+      },
+      "ApiActorState": {
+        "type": "object",
+        "required": [
+          "Balance",
+          "Code",
+          "State"
+        ],
+        "properties": {
+          "Balance": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Code": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "State": {
+            "$ref": "#/components/schemas/ApiState"
+          }
+        }
+      },
+      "ApiDeadlineInfo": {
+        "type": "string"
+      },
+      "ApiDealProposal": {
+        "type": "object",
+        "required": [
+          "Client",
+          "ClientCollateral",
+          "EndEpoch",
+          "Label",
+          "PieceCID",
+          "PieceSize",
+          "Provider",
+          "ProviderCollateral",
+          "StartEpoch",
+          "StoragePricePerEpoch",
+          "VerifiedDeal"
+        ],
+        "properties": {
+          "Client": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ClientCollateral": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "EndEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Label": {
+            "type": "string"
+          },
+          "PieceCID": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "PieceSize": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Provider": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ProviderCollateral": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "StartEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "StoragePricePerEpoch": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "VerifiedDeal": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ApiDealState": {
+        "type": "object",
+        "required": [
+          "LastUpdatedEpoch",
+          "SectorStartEpoch",
+          "SlashEpoch"
+        ],
+        "properties": {
+          "LastUpdatedEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SectorStartEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SlashEpoch": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ApiInvocResult": {
+        "type": "object",
+        "required": [
+          "Duration",
+          "Error",
+          "GasCost",
+          "Msg",
+          "MsgCid",
+          "MsgRct"
+        ],
+        "properties": {
+          "Duration": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Error": {
+            "type": "string"
+          },
+          "ExecutionTrace": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExecutionTrace"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "GasCost": {
+            "$ref": "#/components/schemas/MessageGasCost"
+          },
+          "Msg": {
+            "$ref": "#/components/schemas/Message2"
+          },
+          "MsgCid": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "MsgRct": {
+            "$ref": "#/components/schemas/Nullable_Receipt"
+          }
+        }
+      },
+      "ApiMarketDeal": {
+        "type": "object",
+        "required": [
+          "Proposal",
+          "State"
+        ],
+        "properties": {
+          "Proposal": {
+            "$ref": "#/components/schemas/ApiDealProposal"
+          },
+          "State": {
+            "$ref": "#/components/schemas/ApiDealState"
+          }
+        }
+      },
+      "ApiState": {
+        "type": "object",
+        "required": [
+          "BuiltinActors"
+        ],
+        "properties": {
+          "BuiltinActors": true
+        }
+      },
+      "Base64String": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Inner"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Base64String2": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Inner"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "BeaconEntry": {
+        "type": "object",
+        "required": [
+          "Data",
+          "Round"
+        ],
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "Round": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "BeaconEntry2": {
+        "type": "object",
+        "required": [
+          "Data",
+          "Round"
+        ],
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "Round": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "BeneficiaryTerm": {
+        "type": "object",
+        "required": [
+          "Expiration",
+          "Quota",
+          "UsedQuota"
+        ],
+        "properties": {
+          "Expiration": {
+            "description": "The epoch at which the beneficiary's rights expire and revert to the owner",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Quota": {
+            "description": "The total amount the current beneficiary can withdraw. Monotonic, but reset when beneficiary changes.",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "UsedQuota": {
+            "description": "The amount of quota the current beneficiary has already withdrawn",
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "BigInt": {
+        "type": "string"
+      },
+      "BigInt2": {
+        "type": "string"
+      },
+      "BitField": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        }
+      },
+      "BlockHeader": {
+        "type": "object",
+        "required": [
+          "BeaconEntries",
+          "ForkSignaling",
+          "Height",
+          "Messages",
+          "Miner",
+          "ParentBaseFee",
+          "ParentMessageReceipts",
+          "ParentStateRoot",
+          "ParentWeight",
+          "Parents",
+          "Timestamp",
+          "WinPoStProof"
+        ],
+        "properties": {
+          "BLSAggregate": {
+            "$ref": "#/components/schemas/Nullable_Signature"
+          },
+          "BeaconEntries": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+          },
+          "BlockSig": {
+            "$ref": "#/components/schemas/Nullable_Signature"
+          },
+          "ElectionProof": {
+            "$ref": "#/components/schemas/Nullable_ElectionProof"
+          },
+          "ForkSignaling": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Messages": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Miner": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ParentBaseFee": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "ParentMessageReceipts": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "ParentStateRoot": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "ParentWeight": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Parents": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
+          },
+          "Ticket": {
+            "$ref": "#/components/schemas/Nullable_Ticket"
+          },
+          "Timestamp": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "WinPoStProof": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+          }
+        }
+      },
+      "BlockHeader2": {
+        "type": "object",
+        "required": [
+          "BeaconEntries",
+          "ForkSignaling",
+          "Height",
+          "Messages",
+          "Miner",
+          "ParentBaseFee",
+          "ParentMessageReceipts",
+          "ParentStateRoot",
+          "ParentWeight",
+          "Parents",
+          "Timestamp",
+          "WinPoStProof"
+        ],
+        "properties": {
+          "BLSAggregate": {
+            "$ref": "#/components/schemas/Nullable_Signature"
+          },
+          "BeaconEntries": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+          },
+          "BlockSig": {
+            "$ref": "#/components/schemas/Nullable_Signature"
+          },
+          "ElectionProof": {
+            "$ref": "#/components/schemas/Nullable_ElectionProof"
+          },
+          "ForkSignaling": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Messages": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Miner": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ParentBaseFee": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "ParentMessageReceipts": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "ParentStateRoot": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "ParentWeight": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Parents": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
+          },
+          "Ticket": {
+            "$ref": "#/components/schemas/Nullable_Ticket"
+          },
+          "Timestamp": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "WinPoStProof": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+          }
+        }
+      },
+      "BlockMessage": {
+        "type": "object",
+        "required": [
+          "BlsMessages",
+          "Header",
+          "SecpkMessages"
+        ],
+        "properties": {
+          "BlsMessages": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          },
+          "Header": {
+            "$ref": "#/components/schemas/BlockHeader2"
+          },
+          "SecpkMessages": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          }
+        }
+      },
+      "BlockTemplate": {
+        "type": "object",
+        "required": [
+          "BeaconValues",
+          "Epoch",
+          "Eproof",
+          "Messages",
+          "Miner",
+          "Parents",
+          "Ticket",
+          "Timestamp",
+          "WinningPoStProof"
+        ],
+        "properties": {
+          "BeaconValues": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+          },
+          "Epoch": {
+            "$ref": "#/components/schemas/int64"
+          },
+          "Eproof": {
+            "$ref": "#/components/schemas/ElectionProof2"
+          },
+          "Messages": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+          },
+          "Miner": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Parents": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
+          },
+          "Ticket": {
+            "$ref": "#/components/schemas/Ticket2"
+          },
+          "Timestamp": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "WinningPoStProof": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+          }
+        }
+      },
+      "Cid": {
+        "type": "object",
+        "required": [
+          "/"
+        ],
+        "properties": {
+          "/": {
+            "type": "string"
+          }
+        }
+      },
+      "Cid2": {
+        "type": "object",
+        "required": [
+          "/"
+        ],
+        "properties": {
+          "/": {
+            "type": "string"
+          }
+        }
+      },
+      "Claim": {
+        "type": "object",
+        "required": [
+          "QualityAdjPower",
+          "RawBytePower"
+        ],
+        "properties": {
+          "QualityAdjPower": {
+            "description": "Sum of quality adjusted power for a miner's sectors.",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "RawBytePower": {
+            "description": "Sum of raw byte power for a miner's sectors.",
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "ClaimLotusJson": {
+        "type": "object",
+        "required": [
+          "Client",
+          "Data",
+          "Provider",
+          "Sector",
+          "Size",
+          "TermMax",
+          "TermMin",
+          "TermStart"
+        ],
+        "properties": {
+          "Client": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Data": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Provider": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Sector": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Size": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "TermMax": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "TermMin": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "TermStart": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DealCollateralBounds": {
+        "type": "object",
+        "required": [
+          "Max",
+          "Min"
+        ],
+        "properties": {
+          "Max": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Min": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "ElectionProof": {
+        "type": "object",
+        "required": [
+          "VRFProof",
+          "WinCount"
+        ],
+        "properties": {
+          "VRFProof": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "WinCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ElectionProof2": {
+        "type": "object",
+        "required": [
+          "VRFProof",
+          "WinCount"
+        ],
+        "properties": {
+          "VRFProof": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "WinCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ExecutionTrace": {
+        "type": "object",
+        "required": [
+          "GasCharges",
+          "Msg",
+          "MsgRct",
+          "Subcalls"
+        ],
+        "properties": {
+          "GasCharges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GasTrace"
+            }
+          },
+          "InvokedActor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ActorTrace"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "Msg": {
+            "$ref": "#/components/schemas/MessageTrace"
+          },
+          "MsgRct": {
+            "$ref": "#/components/schemas/ReturnTrace"
+          },
+          "Subcalls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutionTrace"
+            }
+          }
+        }
+      },
+      "ExitCode": {
+        "description": "`Newtype` wrapper for the FVM `ExitCode`.\n\n# Examples ``` # use forest_filecoin::doctest_private::ExitCode; let fvm2_success = fvm_shared2::error::ExitCode::new(0); let fvm3_success = fvm_shared3::error::ExitCode::new(0);\n\nlet shim_from_v2 = ExitCode::from(fvm2_success); let shim_from_v3 = ExitCode::from(fvm3_success);\n\nassert_eq!(shim_from_v2, shim_from_v3); assert_eq!(shim_from_v2, fvm2_success.into()); assert_eq!(shim_from_v3, fvm3_success.into()); ```",
+        "type": "integer",
+        "format": "uint32",
+        "minimum": 0.0
+      },
+      "GasTrace": {
+        "type": "object",
+        "required": [
+          "Name",
+          "cg",
+          "sg",
+          "tg",
+          "tt"
+        ],
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "cg": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "sg": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "tg": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "tt": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "Inner": {
+        "type": "string"
+      },
+      "MarketBalance": {
+        "description": "External format for returning market balance from state.",
+        "type": "object",
+        "required": [
+          "Escrow",
+          "Locked"
+        ],
+        "properties": {
+          "Escrow": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Locked": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "required": [
+          "From",
+          "GasFeeCap",
+          "GasLimit",
+          "GasPremium",
+          "Method",
+          "Nonce",
+          "To",
+          "Value",
+          "Version"
+        ],
+        "properties": {
+          "CID": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "From": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "GasFeeCap": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "GasLimit": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "GasPremium": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Method": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Nonce": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Params": {
+            "$ref": "#/components/schemas/Nullable_Base64String"
+          },
+          "To": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Value": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Version": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "Message2": {
+        "type": "object",
+        "required": [
+          "From",
+          "GasFeeCap",
+          "GasLimit",
+          "GasPremium",
+          "Method",
+          "Nonce",
+          "To",
+          "Value",
+          "Version"
+        ],
+        "properties": {
+          "CID": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "From": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "GasFeeCap": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "GasLimit": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "GasPremium": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Method": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Nonce": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Params": {
+            "$ref": "#/components/schemas/Nullable_Base64String"
+          },
+          "To": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Value": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Version": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "MessageFilter": {
+        "type": "object",
+        "required": [
+          "From",
+          "To"
+        ],
+        "properties": {
+          "From": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
+          "To": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          }
+        }
+      },
+      "MessageGasCost": {
+        "type": "object",
+        "required": [
+          "BaseFeeBurn",
+          "GasUsed",
+          "Message",
+          "MinerPenalty",
+          "MinerTip",
+          "OverEstimationBurn",
+          "Refund",
+          "TotalCost"
+        ],
+        "properties": {
+          "BaseFeeBurn": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "GasUsed": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Message": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "MinerPenalty": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "MinerTip": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "OverEstimationBurn": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Refund": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "TotalCost": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "MessageLookup": {
+        "type": "object",
+        "required": [
+          "Height",
+          "Message",
+          "Receipt",
+          "ReturnDec",
+          "TipSet"
+        ],
+        "properties": {
+          "Height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Message": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Receipt": {
+            "$ref": "#/components/schemas/Receipt2"
+          },
+          "ReturnDec": true,
+          "TipSet": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
+          }
+        }
+      },
+      "MessageSendSpec": {
+        "type": "object",
+        "required": [
+          "MaxFee"
+        ],
+        "properties": {
+          "MaxFee": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "MessageTrace": {
+        "type": "object",
+        "required": [
+          "From",
+          "Method",
+          "Params",
+          "ParamsCodec",
+          "To",
+          "Value"
+        ],
+        "properties": {
+          "From": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "GasLimit": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Method": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Params": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "ParamsCodec": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "ReadOnly": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "To": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Value": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "MinerInfo": {
+        "type": "object",
+        "required": [
+          "Beneficiary",
+          "BeneficiaryTerm",
+          "ConsensusFaultElapsed",
+          "ControlAddresses",
+          "Multiaddrs",
+          "NewWorker",
+          "Owner",
+          "PeerId",
+          "PendingBeneficiaryTerm",
+          "PendingOwnerAddress",
+          "SectorSize",
+          "WindowPoStPartitionSectors",
+          "WindowPoStProofType",
+          "Worker",
+          "WorkerChangeEpoch"
+        ],
+        "properties": {
+          "Beneficiary": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "BeneficiaryTerm": {
+            "$ref": "#/components/schemas/BeneficiaryTerm"
+          },
+          "ConsensusFaultElapsed": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ControlAddresses": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+          },
+          "Multiaddrs": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::vec_u8::VecU8LotusJson"
+          },
+          "NewWorker": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
+          "Owner": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "PeerId": {
+            "$ref": "#/components/schemas/Nullable_String"
+          },
+          "PendingBeneficiaryTerm": {
+            "$ref": "#/components/schemas/Nullable_PendingBeneficiaryChange"
+          },
+          "PendingOwnerAddress": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
+          "SectorSize": {
+            "$ref": "#/components/schemas/SectorSize"
+          },
+          "WindowPoStPartitionSectors": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "WindowPoStProofType": {
+            "type": "string"
+          },
+          "Worker": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "WorkerChangeEpoch": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "MinerPower": {
+        "type": "object",
+        "required": [
+          "HasMinPower",
+          "MinerPower",
+          "TotalPower"
+        ],
+        "properties": {
+          "HasMinPower": {
+            "type": "boolean"
+          },
+          "MinerPower": {
+            "$ref": "#/components/schemas/Claim"
+          },
+          "TotalPower": {
+            "$ref": "#/components/schemas/Claim"
+          }
+        }
+      },
+      "MiningBaseInfo": {
+        "type": "object",
+        "required": [
+          "BeaconEntries",
+          "EligibleForMining",
+          "MinerPower",
+          "NetworkPower",
+          "PrevBeaconEntry",
+          "SectorSize",
+          "Sectors",
+          "WorkerKey"
+        ],
+        "properties": {
+          "BeaconEntries": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+          },
+          "EligibleForMining": {
+            "type": "boolean"
+          },
+          "MinerPower": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "NetworkPower": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "PrevBeaconEntry": {
+            "$ref": "#/components/schemas/BeaconEntry2"
+          },
+          "SectorSize": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Sectors": {
+            "$ref": "#/components/schemas/forest_filecoin::lotus_json::sector_info::SectorInfoLotusJson"
+          },
+          "WorkerKey": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "NonEmpty_Array_of_BlockHeader": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/BlockHeader"
+        },
+        "minItems": 1
+      },
+      "NonEmpty_Array_of_Cid": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Cid"
+        },
+        "minItems": 1
+      },
+      "Nullable_Address": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Address2"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_Base64String": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Base64String"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_Cid": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Cid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_ElectionProof": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ElectionProof"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_PendingBeneficiaryChange": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/PendingBeneficiaryChange"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_Receipt": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Receipt"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_Signature": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Signature2"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Nullable_String": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "Nullable_Ticket": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Ticket"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "PendingBeneficiaryChange": {
+        "type": "object",
+        "required": [
+          "ApprovedByBeneficiary",
+          "ApprovedByNominee",
+          "NewBeneficiary",
+          "NewExpiration",
+          "NewQuota"
+        ],
+        "properties": {
+          "ApprovedByBeneficiary": {
+            "type": "boolean"
+          },
+          "ApprovedByNominee": {
+            "type": "boolean"
+          },
+          "NewBeneficiary": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "NewExpiration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "NewQuota": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "PoStProof": {
+        "type": "object",
+        "required": [
+          "PoStProof",
+          "ProofBytes"
+        ],
+        "properties": {
+          "PoStProof": {
+            "$ref": "#/components/schemas/int64"
+          },
+          "ProofBytes": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
+      "Receipt": {
+        "type": "object",
+        "required": [
+          "ExitCode",
+          "GasUsed",
+          "Return"
+        ],
+        "properties": {
+          "EventsRoot": {
+            "default": null,
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "ExitCode": {
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          },
+          "GasUsed": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Return": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
+      "Receipt2": {
+        "type": "object",
+        "required": [
+          "ExitCode",
+          "GasUsed",
+          "Return"
+        ],
+        "properties": {
+          "EventsRoot": {
+            "default": null,
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "ExitCode": {
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          },
+          "GasUsed": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Return": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
+      "ReturnTrace": {
+        "type": "object",
+        "required": [
+          "ExitCode",
+          "Return",
+          "ReturnCodec"
+        ],
+        "properties": {
+          "ExitCode": {
+            "$ref": "#/components/schemas/ExitCode"
+          },
+          "Return": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "ReturnCodec": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "SectorExpiration": {
+        "type": "object",
+        "required": [
+          "Early",
+          "OnTime"
+        ],
+        "properties": {
+          "Early": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "OnTime": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SectorInfo": {
+        "type": "object",
+        "required": [
+          "SealProof",
+          "SealedCID",
+          "SectorNumber"
+        ],
+        "properties": {
+          "SealProof": {
+            "$ref": "#/components/schemas/int64"
+          },
+          "SealedCID": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "SectorNumber": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      "SectorOnChainInfo": {
+        "type": "object",
+        "required": [
+          "Activation",
+          "DealIDs",
+          "DealWeight",
+          "ExpectedDayReward",
+          "ExpectedStoragePledge",
+          "Expiration",
+          "Flags",
+          "InitialPledge",
+          "PowerBaseEpoch",
+          "ReplacedDayReward",
+          "SealProof",
+          "SealedCID",
+          "SectorKeyCID",
+          "SectorNumber",
+          "VerifiedDealWeight"
+        ],
+        "properties": {
+          "Activation": {
+            "description": "Epoch during which the sector proof was accepted",
+            "type": "integer",
+            "format": "int64"
+          },
+          "DealIDs": {
+            "$ref": "#/components/schemas/u64"
+          },
+          "DealWeight": {
+            "description": "Integral of active deals over sector lifetime",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "ExpectedDayReward": {
+            "description": "Expected one day projection of reward for sector computed at activation time",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "ExpectedStoragePledge": {
+            "description": "Expected twenty day projection of reward for sector computed at activation time",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Expiration": {
+            "description": "Epoch during which the sector expires",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Flags": {
+            "description": "Additional flags, see [`fil_actor_miner_state::v12::SectorOnChainInfoFlags`]",
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          },
+          "InitialPledge": {
+            "description": "Pledge collected to commit this sector",
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "PowerBaseEpoch": {
+            "description": "Epoch at which this sector's power was most recently updated",
+            "type": "integer",
+            "format": "int64"
+          },
+          "ReplacedDayReward": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "SealProof": {
+            "description": "The seal proof type implies the PoSt proofs",
+            "type": "integer",
+            "format": "int64"
+          },
+          "SealedCID": {
+            "description": "`CommR`",
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "SectorKeyCID": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "SectorNumber": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "VerifiedDealWeight": {
+            "description": "Integral of active verified deals over sector lifetime",
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
+      "SectorPreCommitInfo": {
+        "type": "object",
+        "required": [
+          "DealIDs",
+          "Expiration",
+          "SealProof",
+          "SealRandEpoch",
+          "SealedCID",
+          "SectorNumber",
+          "UnsealedCid"
+        ],
+        "properties": {
+          "DealIDs": {
+            "$ref": "#/components/schemas/u64"
+          },
+          "Expiration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SealProof": {
+            "$ref": "#/components/schemas/int64"
+          },
+          "SealRandEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SealedCID": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "SectorNumber": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "UnsealedCid": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          }
+        }
+      },
+      "SectorPreCommitInfo2": {
+        "type": "object",
+        "required": [
+          "DealIDs",
+          "Expiration",
+          "SealProof",
+          "SealRandEpoch",
+          "SealedCID",
+          "SectorNumber",
+          "UnsealedCid"
+        ],
+        "properties": {
+          "DealIDs": {
+            "$ref": "#/components/schemas/u64"
+          },
+          "Expiration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SealProof": {
+            "$ref": "#/components/schemas/int64"
+          },
+          "SealRandEpoch": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SealedCID": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "SectorNumber": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "UnsealedCid": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          }
+        }
+      },
+      "SectorPreCommitOnChainInfo": {
+        "type": "object",
+        "required": [
+          "Info",
+          "PreCommitDeposit",
+          "PreCommitEpoch"
+        ],
+        "properties": {
+          "Info": {
+            "$ref": "#/components/schemas/SectorPreCommitInfo"
+          },
+          "PreCommitDeposit": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "PreCommitEpoch": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SectorSize": {
+        "type": "integer",
+        "format": "uint64",
+        "minimum": 0.0
+      },
+      "Signature": {
+        "type": "object",
+        "required": [
+          "Data",
+          "Type"
+        ],
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "Type": {
+            "$ref": "#/components/schemas/SignatureType"
+          }
+        }
+      },
+      "Signature2": {
+        "type": "object",
+        "required": [
+          "Data",
+          "Type"
+        ],
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "Type": {
+            "$ref": "#/components/schemas/SignatureType"
+          }
+        }
+      },
+      "SignatureType": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/SignatureType2"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "SignatureType2": {
+        "description": "Signature variants for Filecoin signatures.",
+        "type": "string",
+        "enum": [
+          "Secp256k1",
+          "Bls",
+          "Delegated"
+        ]
+      },
+      "SignedMessage": {
+        "type": "object",
+        "required": [
+          "Message",
+          "Signature"
+        ],
+        "properties": {
+          "CID": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "Message": {
+            "$ref": "#/components/schemas/Message2"
+          },
+          "Signature": {
+            "$ref": "#/components/schemas/Signature"
+          }
+        }
+      },
+      "Ticket": {
+        "type": "object",
+        "required": [
+          "VRFProof"
+        ],
+        "properties": {
+          "VRFProof": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
+      "Ticket2": {
+        "type": "object",
+        "required": [
+          "VRFProof"
+        ],
+        "properties": {
+          "VRFProof": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
+      "Tipset": {
+        "$ref": "#/components/schemas/TipsetInner"
+      },
+      "TipsetInner": {
+        "type": "object",
+        "required": [
+          "Blocks",
+          "Cids",
+          "Height"
+        ],
+        "properties": {
+          "Blocks": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_BlockHeader"
+          },
+          "Cids": {
+            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
+          },
+          "Height": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "forest_filecoin::lotus_json::address::AddressLotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Address2"
+        }
+      },
+      "forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/BeaconEntry"
+        }
+      },
+      "forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Cid"
+        }
+      },
+      "forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/PoStProof"
+        }
+      },
+      "forest_filecoin::lotus_json::sector_info::SectorInfoLotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SectorInfo"
+        }
+      },
+      "forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SignedMessage"
+        }
+      },
+      "forest_filecoin::lotus_json::vec_u8::VecU8LotusJson": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Base64String"
+        }
+      },
+      "forest_filecoin::rpc::types::ApiDeadline": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/forest_filecoin::rpc::types::ApiDeadline"
+        }
+      },
+      "forest_filecoin::rpc::types::MinerPartitions": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/forest_filecoin::rpc::types::MinerPartitions"
+        }
+      },
+      "int64": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "u64": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    },
+    "tags": {
+      "client_interoperability": {
+        "name": "client_interoperability"
+      },
+      "v0": {
+        "name": "v0"
+      },
+      "v1": {
+        "name": "v1"
+      }
+    }
+  }
+}
