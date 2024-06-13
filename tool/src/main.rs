@@ -1,13 +1,13 @@
+mod gc;
 mod openrpc_diff;
-mod openrpc_resolve;
-mod openrpc_types;
 
-use anyhow::{bail, Context as _};
+use anyhow::Context as _;
 use clap::Parser;
 use itertools::Itertools as _;
-use openrpc_types::OpenRPC;
-use serde::de::DeserializeOwned;
+use openrpc_types::{resolve_within, OpenRPC};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use std::{
+    collections::{BTreeMap, BTreeSet},
     fs::File,
     io,
     path::{Path, PathBuf},
@@ -35,13 +35,17 @@ enum Openrpc {
         left: PathBuf,
         right: PathBuf,
     },
+    Select {
+        openrpc: PathBuf,
+        select: PathBuf,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
     match Args::parse() {
         Args::Openrpc(Openrpc::Validate { path }) => {
             let document = load_json::<OpenRPC>(path)?;
-            let methods = openrpc_resolve::methods(document.components.as_ref(), document.methods)?;
+            let methods = resolve_within(document)?.methods;
             if let Ok(dups) = nunny::Vec::new(
                 methods
                     .iter()
@@ -92,6 +96,39 @@ fn main() -> anyhow::Result<()> {
             serde_json::to_writer_pretty(io::stdout(), &summary)?;
             Ok(())
         }
+        Args::Openrpc(Openrpc::Select { openrpc, select }) => {
+            let mut openrpc = resolve_within(load_json(openrpc)?)?;
+            let select = load_json::<Vec<Select>>(select)?
+                .into_iter()
+                .filter(|it| matches!(it.include, Some(InclusionDirective::Include)))
+                // formatting the name like this is a hack
+                .map(|it| (format!("Filecoin.{}", it.method), it.description))
+                .collect::<BTreeMap<_, _>>();
+            openrpc.methods.retain_mut(|it| match select.get(&it.name) {
+                Some(new_description) => {
+                    if new_description.is_some() && it.description.is_none() {
+                        it.description.clone_from(new_description)
+                    }
+                    true
+                }
+                None => false,
+            });
+            gc::prune_schemas(&mut openrpc)?;
+            if let Ok(missed) = nunny::Vec::new(
+                select
+                    .keys()
+                    .collect::<BTreeSet<_>>()
+                    .difference(&openrpc.methods.iter().map(|it| &it.name).collect())
+                    .collect(),
+            ) {
+                eprintln!(
+                    "the following selected methods were not present: {}",
+                    missed.iter().join(", ")
+                )
+            }
+            serde_json::to_writer_pretty(io::stdout(), &openrpc)?;
+            Ok(())
+        }
     }
 }
 
@@ -103,4 +140,19 @@ fn load_json<T: DeserializeOwned>(path: impl AsRef<Path>) -> anyhow::Result<T> {
     }
     imp::<T>(path.as_ref())
         .with_context(|| format!("couldn't load json from file {}", path.as_ref().display()))
+}
+
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+struct Select {
+    description: Option<String>,
+    include: Option<InclusionDirective>,
+    method: String,
+}
+
+#[derive(Serialize, Deserialize)]
+enum InclusionDirective {
+    Discussion,
+    Include,
+    Exclude,
 }

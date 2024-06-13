@@ -6,16 +6,17 @@ use std::{
     },
 };
 
-use crate::openrpc_resolve::{ResolveError, ResolvedMethod};
-use crate::openrpc_types::{ContentDescriptor, OpenRPC, SpecificationExtensions};
 use itertools::{EitherOrBoth, Itertools as _};
 use nunny::NonEmpty;
+use openrpc_types::{
+    resolve_within, resolved, BrokenReference, ContentDescriptor, OpenRPC, SpecificationExtensions,
+};
 use schemars::schema::{RootSchema, Schema};
 use serde::Serialize;
 use serde_json::Value;
 pub use summary::*;
 
-pub fn diff(left: OpenRPC, right: OpenRPC) -> Result<Summary, ResolveError> {
+pub fn diff(left: OpenRPC, right: OpenRPC) -> Result<Summary, BrokenReference> {
     let (left_definitions, left_methods) = prepare(left)?;
     let (right_definitions, right_methods) = prepare(right)?;
 
@@ -101,13 +102,14 @@ fn prepare(
         BTreeMap<String, Schema>,
         BTreeMap<String, (Vec<ContentDescriptor>, Option<ContentDescriptor>)>,
     ),
-    ResolveError,
+    BrokenReference,
 > {
     rewrite_schema_references::open_rpc(&mut document);
-    let methods = crate::openrpc_resolve::methods(document.components.as_ref(), document.methods)?
+    let methods = resolve_within(document.clone())?
+        .methods
         .into_iter()
         .map(
-            |ResolvedMethod {
+            |resolved::Method {
                  name,
                  params,
                  result,
@@ -322,12 +324,12 @@ mod summary {
 
 /// There are two kinds of `$ref`s:
 /// - those defined in JSON Schema
-/// - this defined in Open-RPC
+/// - those defined in Open-RPC
 ///
 /// We want to rewrite the former for [`json_schema_diff`].
 mod rewrite_schema_references {
-    use crate::openrpc_types::{Components, ContentDescriptor, Method, OpenRPC, ReferenceOr};
     use either::Either;
+    use openrpc_types::{Components, ContentDescriptor, Method, OpenRPC, ReferenceOr};
     use schemars::schema::{
         ArrayValidation, ObjectValidation, Schema, SchemaObject, SingleOrVec, SubschemaValidation,
     };
@@ -390,7 +392,7 @@ mod rewrite_schema_references {
                 .for_each(schema);
         }
     }
-    pub fn schema(node: &mut Schema) {
+    fn schema(node: &mut Schema) {
         match node {
             Schema::Bool(_) => {}
             Schema::Object(SchemaObject {
@@ -471,7 +473,7 @@ mod rewrite_schema_references {
             }
         }
     }
-    pub fn content_descriptor(node: &mut ContentDescriptor) {
+    fn content_descriptor(node: &mut ContentDescriptor) {
         let ContentDescriptor {
             name: _,
             summary: _,
