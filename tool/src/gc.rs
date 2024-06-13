@@ -120,15 +120,17 @@ fn mark(
                 }
             }
             if let Some(reference) = reference {
-                let is_new = alive.insert(reference.clone());
-                if is_new {
-                    match reference
-                        .strip_prefix("#/components/schemas/")
-                        .and_then(|k| lookup?.get(k))
-                    {
-                        Some(it) => mark(alive, lookup, it)?,
-                        None => return Err(BrokenReference(reference.clone())),
-                    };
+                match reference.strip_prefix("#/components/schemas/") {
+                    Some(key) => {
+                        if !alive.contains(key) {
+                            alive.insert(key.to_owned());
+                            match lookup.as_ref().and_then(|it| it.get(key)) {
+                                Some(child) => mark(alive, lookup, child)?,
+                                None => return Err(BrokenReference(reference.clone())),
+                            }
+                        }
+                    }
+                    None => return Err(BrokenReference(reference.clone())),
                 }
             }
             Ok(())
