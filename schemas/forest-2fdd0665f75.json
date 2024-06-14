@@ -50,7 +50,7 @@
         "name": "Filecoin.AuthVerify::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/alloc::string::String"
+          "$ref": "#/components/schemas/Nullable_Array_of_String"
         }
       },
       "paramStructure": "by-position"
@@ -126,7 +126,7 @@
         "name": "Filecoin.ChainGetParentMessages::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::ApiMessage"
+          "$ref": "#/components/schemas/Nullable_Array_of_ApiMessage"
         }
       },
       "paramStructure": "by-position"
@@ -151,7 +151,7 @@
         "name": "Filecoin.ChainGetParentReceipts::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::ApiReceipt"
+          "$ref": "#/components/schemas/Nullable_Array_of_ApiReceipt"
         }
       },
       "paramStructure": "by-position"
@@ -168,7 +168,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -176,7 +176,7 @@
         "name": "Filecoin.ChainGetMessagesInTipset::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::ApiMessage"
+          "$ref": "#/components/schemas/Nullable_Array_of_ApiMessage"
         }
       },
       "paramStructure": "by-position"
@@ -311,7 +311,7 @@
         "name": "Filecoin.ChainGetPath::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::PathChange<forest_filecoin::blocks::tipset::lotus_json::TipsetLotusJson>"
+          "$ref": "#/components/schemas/Nullable_Array_of_PathChange_for_Tipset"
         }
       },
       "paramStructure": "by-position"
@@ -336,7 +336,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -369,7 +369,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -460,7 +460,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -485,7 +485,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -537,7 +537,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -666,7 +666,7 @@
         "name": "Filecoin.EthAccounts::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/alloc::string::String"
+          "$ref": "#/components/schemas/Nullable_Array_of_String"
         }
       },
       "paramStructure": "by-position"
@@ -732,7 +732,46 @@
         "name": "Filecoin.EthGetCode::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Bytes"
+          "$ref": "#/components/schemas/EthBytes"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.EthGetStorageAt",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v1"
+        }
+      ],
+      "params": [
+        {
+          "name": "eth_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/EthAddress"
+          }
+        },
+        {
+          "name": "position",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/EthBytes"
+          }
+        },
+        {
+          "name": "block_number_or_hash",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.EthGetStorageAt::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/EthBytes"
         }
       },
       "paramStructure": "by-position"
@@ -862,7 +901,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -909,7 +948,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -949,7 +988,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -998,7 +1037,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1063,7 +1102,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1122,7 +1161,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1130,7 +1169,7 @@
         "name": "Filecoin.MpoolPending::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+          "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
         }
       },
       "paramStructure": "by-position"
@@ -1147,7 +1186,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         },
         {
@@ -1163,7 +1202,7 @@
         "name": "Filecoin.MpoolSelect::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+          "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
         }
       },
       "paramStructure": "by-position"
@@ -1251,7 +1290,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1283,7 +1322,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1291,7 +1330,7 @@
         "name": "Filecoin.MsigGetPending::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::Transaction"
+          "$ref": "#/components/schemas/Nullable_Array_of_Transaction"
         }
       },
       "paramStructure": "by-position"
@@ -1315,14 +1354,14 @@
           "name": "start_tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         },
         {
           "name": "end_tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1354,7 +1393,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1396,7 +1435,7 @@
         "name": "Filecoin.NetPeers::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/AddrInfo"
+          "$ref": "#/components/schemas/Nullable_Array_of_AddrInfo"
         }
       },
       "paramStructure": "by-position"
@@ -1548,7 +1587,7 @@
       "name": "Filecoin.NetProtectAdd",
       "tags": [
         {
-          "$ref": "#/components/tags/v1"
+          "$ref": "#/components/tags/v0"
         }
       ],
       "params": [
@@ -1605,7 +1644,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1663,7 +1702,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         },
         {
@@ -1679,7 +1718,7 @@
         "name": "Filecoin.StateListMessages::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+          "$ref": "#/components/schemas/Nullable_Array_of_Cid"
         }
       },
       "paramStructure": "by-position"
@@ -1737,7 +1776,7 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1778,7 +1817,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1819,7 +1858,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1851,7 +1890,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1883,7 +1922,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1915,7 +1954,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1954,7 +1993,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1986,7 +2025,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -1994,7 +2033,7 @@
         "name": "Filecoin.StateMinerActiveSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/SectorOnChainInfo"
+          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
         }
       },
       "paramStructure": "by-position"
@@ -2027,7 +2066,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2035,7 +2074,7 @@
         "name": "Filecoin.StateMinerPartitions::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::MinerPartitions"
+          "$ref": "#/components/schemas/Nullable_Array_of_MinerPartitions"
         }
       },
       "paramStructure": "by-position"
@@ -2061,7 +2100,7 @@
           "schema": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BitField"
+                "$ref": "#/components/schemas/BitField2"
               },
               {
                 "type": "null"
@@ -2073,7 +2112,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2081,7 +2120,7 @@
         "name": "Filecoin.StateMinerSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/SectorOnChainInfo"
+          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
         }
       },
       "paramStructure": "by-position"
@@ -2105,7 +2144,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2114,6 +2153,47 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/MinerSectors"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerSectorAllocated",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerSectorAllocated::Result",
+        "required": true,
+        "schema": {
+          "type": "boolean"
         }
       },
       "paramStructure": "by-position"
@@ -2137,7 +2217,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2169,7 +2249,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2177,7 +2257,7 @@
         "name": "Filecoin.StateMinerDeadlines::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::ApiDeadline"
+          "$ref": "#/components/schemas/Nullable_Array_of_ApiDeadline"
         }
       },
       "paramStructure": "by-position"
@@ -2201,7 +2281,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2233,7 +2313,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2241,7 +2321,7 @@
         "name": "Filecoin.StateMinerFaults::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField"
+          "$ref": "#/components/schemas/BitField2"
         }
       },
       "paramStructure": "by-position"
@@ -2265,7 +2345,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2273,7 +2353,7 @@
         "name": "Filecoin.StateMinerRecoveries::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField"
+          "$ref": "#/components/schemas/BitField2"
         }
       },
       "paramStructure": "by-position"
@@ -2297,7 +2377,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2336,7 +2416,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2368,7 +2448,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2416,7 +2496,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2464,7 +2544,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2496,7 +2576,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2521,7 +2601,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2553,7 +2633,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2585,7 +2665,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2610,7 +2690,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2618,7 +2698,7 @@
         "name": "Filecoin.StateListMiners::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+          "$ref": "#/components/schemas/Nullable_Array_of_Address"
         }
       },
       "paramStructure": "by-position"
@@ -2635,7 +2715,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2669,7 +2749,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2694,7 +2774,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2722,7 +2802,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2766,7 +2846,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2800,7 +2880,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2965,7 +3045,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -2997,7 +3077,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -3021,7 +3101,7 @@
       "name": "Filecoin.StateGetClaim",
       "tags": [
         {
-          "$ref": "#/components/tags/v1"
+          "$ref": "#/components/tags/v0"
         }
       ],
       "params": [
@@ -3045,7 +3125,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -3061,6 +3141,124 @@
               "type": "null"
             }
           ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetClaims",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetClaims::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/ClaimLotusJson"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetAllocation",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "allocation_id",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetAllocation::Result",
+        "required": false,
+        "schema": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Allocation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetAllocations",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetAllocations::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/Allocation"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -3093,7 +3291,7 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       ],
@@ -3102,6 +3300,47 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/SectorExpiration"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateSectorPartition",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address2"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateSectorPartition::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SectorLocation"
         }
       },
       "paramStructure": "by-position"
@@ -3334,7 +3573,7 @@
         "name": "Filecoin.WalletList::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+          "$ref": "#/components/schemas/Nullable_Array_of_Address"
         }
       },
       "paramStructure": "by-position"
@@ -3522,14 +3761,14 @@
           "Nonce"
         ],
         "properties": {
+          "Address": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
           "Balance": {
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
             "$ref": "#/components/schemas/Cid2"
-          },
-          "DelegatedAddress": {
-            "$ref": "#/components/schemas/Nullable_Address"
           },
           "Head": {
             "$ref": "#/components/schemas/Cid2"
@@ -3550,14 +3789,14 @@
           "Nonce"
         ],
         "properties": {
+          "Address": {
+            "$ref": "#/components/schemas/Nullable_Address"
+          },
           "Balance": {
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
             "$ref": "#/components/schemas/Cid2"
-          },
-          "DelegatedAddress": {
-            "$ref": "#/components/schemas/Nullable_Address"
           },
           "Head": {
             "$ref": "#/components/schemas/Cid2"
@@ -3611,6 +3850,50 @@
       "Address2": {
         "type": "string"
       },
+      "Allocation": {
+        "type": "object",
+        "required": [
+          "Client",
+          "Data",
+          "Expiration",
+          "Provider",
+          "Size",
+          "TermMax",
+          "TermMin"
+        ],
+        "properties": {
+          "Client": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Data": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Expiration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Provider": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Size": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "TermMax": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "TermMin": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "ApiActorState": {
         "type": "object",
         "required": [
@@ -3627,6 +3910,23 @@
           },
           "State": {
             "$ref": "#/components/schemas/ApiState"
+          }
+        }
+      },
+      "ApiDeadline": {
+        "type": "object",
+        "required": [
+          "DisputableProofCount",
+          "PostSubmissions"
+        ],
+        "properties": {
+          "DisputableProofCount": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "PostSubmissions": {
+            "$ref": "#/components/schemas/BitField"
           }
         }
       },
@@ -3768,6 +4068,46 @@
           }
         }
       },
+      "ApiMessage": {
+        "type": "object",
+        "required": [
+          "Cid",
+          "Message"
+        ],
+        "properties": {
+          "Cid": {
+            "$ref": "#/components/schemas/Cid2"
+          },
+          "Message": {
+            "$ref": "#/components/schemas/Message2"
+          }
+        }
+      },
+      "ApiReceipt": {
+        "type": "object",
+        "required": [
+          "EventsRoot",
+          "ExitCode",
+          "GasUsed",
+          "Return"
+        ],
+        "properties": {
+          "EventsRoot": {
+            "$ref": "#/components/schemas/Nullable_Cid"
+          },
+          "ExitCode": {
+            "$ref": "#/components/schemas/ExitCode"
+          },
+          "GasUsed": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Return": {
+            "$ref": "#/components/schemas/Base64String2"
+          }
+        }
+      },
       "ApiState": {
         "type": "object",
         "required": [
@@ -3893,6 +4233,17 @@
           "minimum": 0.0
         }
       },
+      "BitField2": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        }
+      },
       "Block": {
         "type": "object",
         "required": [
@@ -3926,7 +4277,7 @@
             "$ref": "#/components/schemas/Uint64"
           },
           "extraData": {
-            "$ref": "#/components/schemas/Bytes"
+            "$ref": "#/components/schemas/EthBytes"
           },
           "gasLimit": {
             "$ref": "#/components/schemas/Uint64"
@@ -4008,7 +4359,7 @@
             "$ref": "#/components/schemas/Nullable_Signature"
           },
           "BeaconEntries": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
           },
           "BlockSig": {
             "$ref": "#/components/schemas/Nullable_Signature"
@@ -4055,7 +4406,7 @@
             "minimum": 0.0
           },
           "WinPoStProof": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_PoStProof"
           }
         }
       },
@@ -4080,7 +4431,7 @@
             "$ref": "#/components/schemas/Nullable_Signature"
           },
           "BeaconEntries": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
           },
           "BlockSig": {
             "$ref": "#/components/schemas/Nullable_Signature"
@@ -4127,7 +4478,7 @@
             "minimum": 0.0
           },
           "WinPoStProof": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_PoStProof"
           }
         }
       },
@@ -4140,13 +4491,13 @@
         ],
         "properties": {
           "BlsMessages": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           },
           "Header": {
             "$ref": "#/components/schemas/BlockHeader2"
           },
           "SecpkMessages": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       },
@@ -4159,13 +4510,13 @@
         ],
         "properties": {
           "BlsMessages": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::message::MessageLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_Message"
           },
           "Cids": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           },
           "SecpkMessages": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
           }
         }
       },
@@ -4184,7 +4535,7 @@
         ],
         "properties": {
           "BeaconValues": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
           },
           "Epoch": {
             "$ref": "#/components/schemas/int64"
@@ -4193,7 +4544,7 @@
             "$ref": "#/components/schemas/ElectionProof2"
           },
           "Messages": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
           },
           "Miner": {
             "$ref": "#/components/schemas/Address"
@@ -4210,14 +4561,11 @@
             "minimum": 0.0
           },
           "WinningPoStProof": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_PoStProof"
           }
         }
       },
       "Bloom": {
-        "type": "string"
-      },
-      "Bytes": {
         "type": "string"
       },
       "ChainExportParams": {
@@ -4249,7 +4597,7 @@
             "type": "boolean"
           },
           "tipset_keys": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>"
+            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           }
         }
       },
@@ -4423,6 +4771,9 @@
       "EthAddress": {
         "type": "string"
       },
+      "EthBytes": {
+        "type": "string"
+      },
       "EthSyncingResultLotusJson": {
         "anyOf": [
           {
@@ -4484,10 +4835,7 @@
             "$ref": "#/components/schemas/ReturnTrace"
           },
           "Subcalls": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ExecutionTrace"
-            }
+            "$ref": "#/components/schemas/Nullable_Array_of_ExecutionTrace"
           }
         }
       },
@@ -4768,9 +5116,6 @@
           "Version"
         ],
         "properties": {
-          "CID": {
-            "$ref": "#/components/schemas/Nullable_Cid"
-          },
           "From": {
             "$ref": "#/components/schemas/Address"
           },
@@ -4825,9 +5170,6 @@
           "Version"
         ],
         "properties": {
-          "CID": {
-            "$ref": "#/components/schemas/Nullable_Cid"
-          },
           "From": {
             "$ref": "#/components/schemas/Address"
           },
@@ -5039,10 +5381,10 @@
             "format": "int64"
           },
           "ControlAddresses": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::address::AddressLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_Address"
           },
           "Multiaddrs": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::vec_u8::VecU8LotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_Base64String"
           },
           "NewWorker": {
             "$ref": "#/components/schemas/Nullable_Address"
@@ -5076,6 +5418,33 @@
           "WorkerChangeEpoch": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      },
+      "MinerPartitions": {
+        "type": "object",
+        "required": [
+          "ActiveSectors",
+          "AllSectors",
+          "FaultySectors",
+          "LiveSectors",
+          "RecoveringSectors"
+        ],
+        "properties": {
+          "ActiveSectors": {
+            "$ref": "#/components/schemas/BitField"
+          },
+          "AllSectors": {
+            "$ref": "#/components/schemas/BitField"
+          },
+          "FaultySectors": {
+            "$ref": "#/components/schemas/BitField"
+          },
+          "LiveSectors": {
+            "$ref": "#/components/schemas/BitField"
+          },
+          "RecoveringSectors": {
+            "$ref": "#/components/schemas/BitField"
           }
         }
       },
@@ -5137,7 +5506,7 @@
         ],
         "properties": {
           "BeaconEntries": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
           },
           "EligibleForMining": {
             "type": "boolean"
@@ -5157,7 +5526,7 @@
             "minimum": 0.0
           },
           "Sectors": {
-            "$ref": "#/components/schemas/forest_filecoin::lotus_json::sector_info::SectorInfoLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_SectorInfo"
           },
           "WorkerKey": {
             "$ref": "#/components/schemas/Address"
@@ -5390,6 +5759,188 @@
           }
         ]
       },
+      "Nullable_Array_of_AddrInfo": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/AddrInfo"
+        }
+      },
+      "Nullable_Array_of_Address": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Address2"
+        }
+      },
+      "Nullable_Array_of_ApiDeadline": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/ApiDeadline"
+        }
+      },
+      "Nullable_Array_of_ApiMessage": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/ApiMessage"
+        }
+      },
+      "Nullable_Array_of_ApiReceipt": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/ApiReceipt"
+        }
+      },
+      "Nullable_Array_of_Base64String": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Base64String"
+        }
+      },
+      "Nullable_Array_of_BeaconEntry": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/BeaconEntry"
+        }
+      },
+      "Nullable_Array_of_Cid": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Cid"
+        }
+      },
+      "Nullable_Array_of_ExecutionTrace": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/ExecutionTrace"
+        }
+      },
+      "Nullable_Array_of_Message": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Message"
+        }
+      },
+      "Nullable_Array_of_MinerPartitions": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/MinerPartitions"
+        }
+      },
+      "Nullable_Array_of_PathChange_for_Tipset": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/PathChange_for_Tipset"
+        }
+      },
+      "Nullable_Array_of_PoStProof": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/PoStProof"
+        }
+      },
+      "Nullable_Array_of_SectorInfo": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SectorInfo"
+        }
+      },
+      "Nullable_Array_of_SectorOnChainInfo": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SectorOnChainInfo"
+        }
+      },
+      "Nullable_Array_of_SignedMessage": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SignedMessage"
+        }
+      },
+      "Nullable_Array_of_String": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string"
+        }
+      },
+      "Nullable_Array_of_SyncState": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/SyncState"
+        }
+      },
+      "Nullable_Array_of_Transaction": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Transaction"
+        }
+      },
+      "Nullable_Array_of_uint64": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      },
       "Nullable_Base64String": {
         "anyOf": [
           {
@@ -5488,26 +6039,38 @@
           {
             "type": "object",
             "required": [
-              "revert"
+              "Type",
+              "Val"
             ],
             "properties": {
-              "revert": {
+              "Type": {
+                "type": "string",
+                "enum": [
+                  "revert"
+                ]
+              },
+              "Val": {
                 "$ref": "#/components/schemas/Tipset"
               }
-            },
-            "additionalProperties": false
+            }
           },
           {
             "type": "object",
             "required": [
-              "apply"
+              "Type",
+              "Val"
             ],
             "properties": {
-              "apply": {
+              "Type": {
+                "type": "string",
+                "enum": [
+                  "apply"
+                ]
+              },
+              "Val": {
                 "$ref": "#/components/schemas/Tipset"
               }
-            },
-            "additionalProperties": false
+            }
           }
         ]
       },
@@ -5583,7 +6146,7 @@
         ],
         "properties": {
           "ActiveSyncs": {
-            "$ref": "#/components/schemas/forest_filecoin::chain_sync::sync_state::lotus_json::SyncStateLotusJson"
+            "$ref": "#/components/schemas/Nullable_Array_of_SyncState"
           }
         }
       },
@@ -5700,6 +6263,25 @@
           }
         }
       },
+      "SectorLocation": {
+        "type": "object",
+        "required": [
+          "Deadline",
+          "Partition"
+        ],
+        "properties": {
+          "Deadline": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Partition": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
       "SectorOnChainInfo": {
         "type": "object",
         "required": [
@@ -5726,7 +6308,7 @@
             "format": "int64"
           },
           "DealIDs": {
-            "$ref": "#/components/schemas/u64"
+            "$ref": "#/components/schemas/Nullable_Array_of_uint64"
           },
           "DealWeight": {
             "description": "Integral of active deals over sector lifetime",
@@ -5799,7 +6381,7 @@
         ],
         "properties": {
           "DealIDs": {
-            "$ref": "#/components/schemas/u64"
+            "$ref": "#/components/schemas/Nullable_Array_of_uint64"
           },
           "Expiration": {
             "type": "integer",
@@ -5838,7 +6420,7 @@
         ],
         "properties": {
           "DealIDs": {
-            "$ref": "#/components/schemas/u64"
+            "$ref": "#/components/schemas/Nullable_Array_of_uint64"
           },
           "Expiration": {
             "type": "integer",
@@ -6052,6 +6634,40 @@
           }
         }
       },
+      "Transaction": {
+        "type": "object",
+        "required": [
+          "Approved",
+          "ID",
+          "Method",
+          "Params",
+          "To",
+          "Value"
+        ],
+        "properties": {
+          "Approved": {
+            "$ref": "#/components/schemas/Nullable_Array_of_Address"
+          },
+          "ID": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Method": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Params": {
+            "$ref": "#/components/schemas/Base64String2"
+          },
+          "To": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Value": {
+            "$ref": "#/components/schemas/BigInt"
+          }
+        }
+      },
       "Transactions": {
         "anyOf": [
           {
@@ -6071,7 +6687,6 @@
       "Tx": {
         "type": "object",
         "required": [
-          "accessList",
           "blockHash",
           "blockNumber",
           "chainId",
@@ -6091,7 +6706,10 @@
         ],
         "properties": {
           "accessList": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/Hash"
             }
@@ -6115,7 +6733,7 @@
             "$ref": "#/components/schemas/Hash"
           },
           "input": {
-            "$ref": "#/components/schemas/Bytes"
+            "$ref": "#/components/schemas/EthBytes"
           },
           "maxFeePerGas": {
             "$ref": "#/components/schemas/BigInt3"
@@ -6159,164 +6777,9 @@
       "Uint64": {
         "type": "string"
       },
-      "alloc::string::String": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "type": "string"
-        }
-      },
-      "forest_filecoin::chain_sync::sync_state::lotus_json::SyncStateLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/SyncState"
-        }
-      },
-      "forest_filecoin::lotus_json::address::AddressLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/Address2"
-        }
-      },
-      "forest_filecoin::lotus_json::beacon_entry::BeaconEntryLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/BeaconEntry"
-        }
-      },
-      "forest_filecoin::lotus_json::cid::CidLotusJsonGeneric<64>": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/Cid"
-        }
-      },
-      "forest_filecoin::lotus_json::message::MessageLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/Message"
-        }
-      },
-      "forest_filecoin::lotus_json::po_st_proof::PoStProofLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/PoStProof"
-        }
-      },
-      "forest_filecoin::lotus_json::sector_info::SectorInfoLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/SectorInfo"
-        }
-      },
-      "forest_filecoin::lotus_json::signed_message::SignedMessageLotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/SignedMessage"
-        }
-      },
-      "forest_filecoin::lotus_json::vec_u8::VecU8LotusJson": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/Base64String"
-        }
-      },
-      "forest_filecoin::rpc::methods::chain::ApiMessage": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::ApiMessage"
-        }
-      },
-      "forest_filecoin::rpc::methods::chain::ApiReceipt": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::methods::chain::ApiReceipt"
-        }
-      },
-      "forest_filecoin::rpc::methods::chain::PathChange<forest_filecoin::blocks::tipset::lotus_json::TipsetLotusJson>": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/PathChange_for_Tipset"
-        }
-      },
-      "forest_filecoin::rpc::types::ApiDeadline": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::ApiDeadline"
-        }
-      },
-      "forest_filecoin::rpc::types::MinerPartitions": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::MinerPartitions"
-        }
-      },
-      "forest_filecoin::rpc::types::Transaction": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/forest_filecoin::rpc::types::Transaction"
-        }
-      },
       "int64": {
         "type": "integer",
         "format": "int64"
-      },
-      "u64": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "type": "integer",
-          "format": "uint64",
-          "minimum": 0.0
-        }
       }
     },
     "tags": {
