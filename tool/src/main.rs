@@ -21,29 +21,38 @@ enum Args {
 
 #[derive(Parser)]
 enum Openrpc {
-    /// Does not validate:
+    /// Print the following to stderr:
+    /// - duplicate method names
+    /// - duplicate parameter names
+    /// - bad optional parameters
+    ///
+    /// Does not validate anything else, including:
     /// - that example pairings match schemas
     /// - that Example::value and Example::externalValue are mutually exclusive
-    /// - $ref
+    /// - dead $refs, or JSON Schema $refs
     /// - links, runtime expressions
     /// - component keys are idents
     /// - error codes are unique
-    Validate {
-        path: PathBuf,
-    },
-    Diff {
-        left: PathBuf,
-        right: PathBuf,
-    },
+    ReportErrors { path: PathBuf },
+    /// Print a summary of semantic differences between the `left` and `right`
+    /// OpenRPC schemas.
+    Diff { left: PathBuf, right: PathBuf },
     Select {
         openrpc: PathBuf,
         select: PathBuf,
+        /// Specify a new title for the schema
+        #[arg(long)]
+        overwrite_title: Option<String>,
+        /// Specify a new version for the schema
+        #[arg(long)]
+        overwrite_version: Option<String>,
     },
 }
 
 fn main() -> anyhow::Result<()> {
-    match Args::parse() {
-        Args::Openrpc(Openrpc::Validate { path }) => {
+    let Args::Openrpc(args) = Args::parse();
+    match args {
+        Openrpc::ReportErrors { path } => {
             let document = load_json::<OpenRPC>(path)?;
             let methods = resolve_within(document)?.methods;
             if let Ok(dups) = nunny::Vec::new(
@@ -91,12 +100,17 @@ fn main() -> anyhow::Result<()> {
 
             Ok(())
         }
-        Args::Openrpc(Openrpc::Diff { left, right }) => {
+        Openrpc::Diff { left, right } => {
             let summary = openrpc_diff::diff(load_json(left)?, load_json(right)?)?;
             serde_json::to_writer_pretty(io::stdout(), &summary)?;
             Ok(())
         }
-        Args::Openrpc(Openrpc::Select { openrpc, select }) => {
+        Openrpc::Select {
+            openrpc,
+            select,
+            overwrite_title,
+            overwrite_version,
+        } => {
             let mut openrpc = resolve_within(load_json(openrpc)?)?;
             let select = load_json::<Vec<Select>>(select)?
                 .into_iter()
@@ -125,6 +139,12 @@ fn main() -> anyhow::Result<()> {
                     "the following selected methods were not present: {}",
                     missed.iter().join(", ")
                 )
+            }
+            if let Some(title) = overwrite_title {
+                openrpc.info.title = title
+            }
+            if let Some(version) = overwrite_version {
+                openrpc.info.version = version
             }
             serde_json::to_writer_pretty(io::stdout(), &openrpc)?;
             Ok(())
