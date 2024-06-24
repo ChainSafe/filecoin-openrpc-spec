@@ -1,8 +1,8 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "forest",
-    "version": "0.18.0"
+    "title": "common-node-interface",
+    "version": "0.0.0"
   },
   "methods": [
     {
@@ -38,7 +38,7 @@
           "name": "v0"
         }
       ],
-      "description": "reads ipld nodes referenced by the specified CID from chain blockstore and returns raw bytes.",
+      "description": "Reads IPLD nodes referenced by the specified CID from chain blockstore and returns raw bytes.",
       "params": [
         {
           "name": "cid",
@@ -104,12 +104,58 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
       "result": {
         "name": "Filecoin.ChainGetTipSetByHeight::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Tipset"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.ChainGetTipSetAfterHeight",
+      "tags": [
+        {
+          "name": "v1"
+        }
+      ],
+      "description": "Looks back for a tipset at the specified epoch. If there are no blocks at the specified epoch, the first non-nil tipset at a later epoch will be returned. A fork can be specified, or null for the heaviest chain",
+      "params": [
+        {
+          "name": "height",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainGetTipSetAfterHeight::Result",
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/Tipset"
@@ -174,7 +220,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -200,7 +252,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -208,7 +266,7 @@
         "name": "Filecoin.ChainTipSetWeight::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BigInt2"
+          "$ref": "#/components/schemas/BigInt"
         }
       },
       "paramStructure": "by-position"
@@ -233,7 +291,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -281,7 +345,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -322,7 +392,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -357,7 +433,7 @@
           "name": "sender",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -372,7 +448,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -392,6 +474,7 @@
           "name": "v0"
         }
       ],
+      "description": "Fill and sign a block template on behalf of the given miner, returning a suitable block header",
       "params": [
         {
           "name": "block_template",
@@ -417,12 +500,13 @@
           "name": "v0"
         }
       ],
+      "description": "Looks up the Miner Actor at the given address (and tipset), returning basic information like their power, eligibility to mine etc",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -437,7 +521,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -470,7 +560,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -498,7 +588,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -506,7 +602,59 @@
         "name": "Filecoin.MpoolPending::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SignedMessage"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MpoolSelect",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns a list of pending messages for inclusion in the next block",
+      "params": [
+        {
+          "name": "tsk",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        },
+        {
+          "name": "tq",
+          "required": true,
+          "schema": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MpoolSelect::Result",
+        "required": false,
+        "schema": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SignedMessage"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -533,6 +681,46 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/Cid"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.MpoolPushMessage",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Assigns a nonce, signs, and pushes a message to the mempool",
+      "params": [
+        {
+          "name": "usmg",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Message"
+          }
+        },
+        {
+          "name": "spec",
+          "required": false,
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MessageSendSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.MpoolPushMessage::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SignedMessage"
         }
       },
       "paramStructure": "by-position"
@@ -568,7 +756,13 @@
         "name": "Filecoin.NetPeers::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_AddrInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/AddrInfo"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -696,7 +890,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -716,7 +916,7 @@
           "name": "v1"
         }
       ],
-      "description": "Returns the beacon entry for the given epoch. If the entry has not yet been produced, the call will block until the entry becomes available.",
+      "description": "Returns the claim for a given address and claim ID",
       "params": [
         {
           "name": "epoch",
@@ -756,7 +956,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         },
         {
@@ -772,7 +978,31 @@
         "name": "Filecoin.StateListMessages::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateGetNetworkParams",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns current network params",
+      "params": [],
+      "result": {
+        "name": "Filecoin.StateGetNetworkParams::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/NetworkParams"
         }
       },
       "paramStructure": "by-position"
@@ -784,13 +1014,13 @@
           "name": "v0"
         }
       ],
-      "description": "StateSectorGetInfo returns the on-chain info for the specified miner's sector. Returns null in case the sector info isn't found. NOTE: returned info.Expiration may not be accurate in some cases, use StateSectorExpiration to get accurate expiration epoch.",
+      "description": "Returns the on-chain info for the specified miner's sector. Returns null in case the sector info isn't found. NOTE: returned info.Expiration may not be accurate in some cases, use StateSectorExpiration to get accurate expiration epoch.",
       "params": [
         {
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -806,7 +1036,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -826,13 +1062,13 @@
           "name": "v0"
         }
       ],
-      "description": "StateSectorPreCommitInfo returns the PreCommit info for the specified miner's sector. Returns null and no error if the sector isn't precommitted. Note that the sector number may be allocated while PreCommitInfo is nil. This means that either allocated sector numbers were compacted, and the sector number was marked as allocated in order to reduce size of the allocated sectors bitfield, or that the sector was precommitted, but the precommit has expired.",
+      "description": "Returns the PreCommit info for the specified miner's sector. Returns null and no error if the sector isn't precommitted. Note that the sector number may be allocated while PreCommitInfo is nil. This means that either allocated sector numbers were compacted, and the sector number was marked as allocated in order to reduce size of the allocated sectors bitfield, or that the sector was precommitted, but the precommit has expired.",
       "params": [
         {
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -848,7 +1084,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -874,14 +1116,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -889,7 +1137,46 @@
         "name": "Filecoin.StateAccountKey::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateLookupID",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "retrieves the ID address of the given address",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateLookupID::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -907,14 +1194,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -924,7 +1217,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/ActorState2"
+              "$ref": "#/components/schemas/ActorState"
             },
             {
               "type": "null"
@@ -947,14 +1240,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -974,20 +1273,26 @@
           "name": "v0"
         }
       ],
-      "description": "returns info about sectors that a given miner is actively proving",
+      "description": "Returns info about sectors that a given miner is actively proving",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -995,7 +1300,13 @@
         "name": "Filecoin.StateMinerActiveSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SectorOnChainInfo"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1013,7 +1324,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1029,7 +1340,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1037,7 +1354,13 @@
         "name": "Filecoin.StateMinerPartitions::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_MinerPartitions"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/MinerPartitions"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1055,7 +1378,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1064,7 +1387,7 @@
           "schema": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BitField2"
+                "$ref": "#/components/schemas/BitField"
               },
               {
                 "type": "null"
@@ -1076,7 +1399,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1084,7 +1413,100 @@
         "name": "Filecoin.StateMinerSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SectorOnChainInfo"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerSectorCount",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the number of sectors in a miner's sector set and proving set",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerSectorCount::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MinerSectors"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateMinerSectorAllocated",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "checks if a sector number is marked as allocated",
+      "params": [
+        {
+          "name": "miner_address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "sector_number",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateMinerSectorAllocated::Result",
+        "required": true,
+        "schema": {
+          "type": "boolean"
         }
       },
       "paramStructure": "by-position"
@@ -1102,14 +1524,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1129,20 +1557,26 @@
           "name": "v0"
         }
       ],
-      "description": "returns all the proving deadlines for the given miner",
+      "description": "Returns all the proving deadlines for the given miner",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1150,7 +1584,13 @@
         "name": "Filecoin.StateMinerDeadlines::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_ApiDeadline"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/ApiDeadline"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1168,14 +1608,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1195,20 +1641,26 @@
           "name": "v0"
         }
       ],
-      "description": "returns a bitfield indicating the faulty sectors of the given miner",
+      "description": "Returns a bitfield indicating the faulty sectors of the given miner",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1216,7 +1668,7 @@
         "name": "Filecoin.StateMinerFaults::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField2"
+          "$ref": "#/components/schemas/BitField"
         }
       },
       "paramStructure": "by-position"
@@ -1234,14 +1686,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1249,7 +1707,7 @@
         "name": "Filecoin.StateMinerRecoveries::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField2"
+          "$ref": "#/components/schemas/BitField"
         }
       },
       "paramStructure": "by-position"
@@ -1261,20 +1719,26 @@
           "name": "v0"
         }
       ],
-      "description": "returns the portion of a miner's balance that can be withdrawn or spent",
+      "description": "Returns the portion of a miner's balance that can be withdrawn or spent",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1300,21 +1764,27 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "sector_pre_commit_info",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+            "$ref": "#/components/schemas/SectorPreCommitInfo"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1363,7 +1833,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1383,7 +1859,7 @@
           "name": "v0"
         }
       ],
-      "description": "samples the beacon for randomness",
+      "description": "Returns the beacon entry for the given filecoin epoch. If the entry has not yet been produced, the call will block until the entry becomes available",
       "params": [
         {
           "name": "personalization",
@@ -1412,7 +1888,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1432,20 +1914,26 @@
           "name": "v0"
         }
       ],
-      "description": "returns the indicated actor's state",
+      "description": "Returns the indicated actor's state",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1459,26 +1947,64 @@
       "paramStructure": "by-position"
     },
     {
+      "name": "Filecoin.StateCirculatingSupply",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns the exact circulating supply of Filecoin at the given tipset.",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateCirculatingSupply::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
       "name": "Filecoin.StateVerifiedClientStatus",
       "tags": [
         {
           "name": "v0"
         }
       ],
-      "description": "returns the data cap for the given address. Returns nil if there is no entry in the data cap table for the address.",
+      "description": "Returns the data cap for the given address. Returns nil if there is no entry in the data cap table for the address.",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1488,12 +2014,44 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/BigInt2"
+              "$ref": "#/components/schemas/BigInt"
             },
             {
               "type": "null"
             }
           ]
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateVMCirculatingSupplyInternal",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns an approximation of the circulating supply of Filecoin at the given tipset. This is the value reported by the runtime interface to actors code.",
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateVMCirculatingSupplyInternal::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/CirculatingSupply"
         }
       },
       "paramStructure": "by-position"
@@ -1505,13 +2063,19 @@
           "name": "v0"
         }
       ],
-      "description": "returns the addresses of every miner that has claimed power in the Power Actor",
+      "description": "Returns the addresses of every miner that has claimed power in the Power Actor",
       "params": [
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1519,35 +2083,51 @@
         "name": "Filecoin.StateListMiners::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Address"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
         }
       },
       "paramStructure": "by-position"
     },
     {
-      "name": "Filecoin.StateNetworkVersion",
+      "name": "Filecoin.StateListActors",
       "tags": [
         {
           "name": "v0"
         }
       ],
-      "description": "returns the network version at the given tipset",
+      "description": "returns the addresses of every actor in the state",
       "params": [
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
       "result": {
-        "name": "Filecoin.StateNetworkVersion::Result",
-        "required": true,
+        "name": "Filecoin.StateListActors::Result",
+        "required": false,
         "schema": {
-          "type": "integer",
-          "format": "uint32",
-          "minimum": 0.0
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1565,14 +2145,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1598,7 +2184,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1627,7 +2219,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1672,7 +2270,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1707,7 +2311,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1716,66 +2326,6 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/ApiMarketDeal"
-        }
-      },
-      "paramStructure": "by-position"
-    },
-    {
-      "name": "Filecoin.StateWaitMsg",
-      "tags": [
-        {
-          "name": "v0"
-        }
-      ],
-      "description": "See comment",
-      "params": [
-        {
-          "name": "message_cid",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/Cid"
-          }
-        },
-        {
-          "name": "confidence",
-          "required": true,
-          "schema": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      ],
-      "result": {
-        "name": "Filecoin.StateWaitMsg::Result",
-        "required": true,
-        "schema": {
-          "$ref": "#/components/schemas/MessageLookup"
-        }
-      },
-      "paramStructure": "by-position"
-    },
-    {
-      "name": "Filecoin.StateSearchMsg",
-      "tags": [
-        {
-          "name": "v0"
-        }
-      ],
-      "description": "See comment",
-      "params": [
-        {
-          "name": "message_cid",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/Cid"
-          }
-        }
-      ],
-      "result": {
-        "name": "Filecoin.StateSearchMsg::Result",
-        "required": true,
-        "schema": {
-          "$ref": "#/components/schemas/MessageLookup"
         }
       },
       "paramStructure": "by-position"
@@ -1792,21 +2342,27 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "sector_pre_commit_info",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+            "$ref": "#/components/schemas/SectorPreCommitInfo"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1832,14 +2388,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1849,7 +2411,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/BigInt2"
+              "$ref": "#/components/schemas/BigInt"
             },
             {
               "type": "null"
@@ -1866,13 +2428,13 @@
           "name": "v0"
         }
       ],
-      "description": "returns the claim for a given address and claim ID",
+      "description": "Returns the claim for a given address and claim ID",
       "params": [
         {
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1888,7 +2450,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1909,6 +2477,48 @@
       "paramStructure": "by-position"
     },
     {
+      "name": "Filecoin.StateGetClaims",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the all the claims for a given provider",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetClaims::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/ClaimLotusJson"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
       "name": "Filecoin.StateGetAllocation",
       "tags": [
         {
@@ -1921,7 +2531,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1937,7 +2547,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1958,19 +2574,61 @@
       "paramStructure": "by-position"
     },
     {
+      "name": "Filecoin.StateGetAllocations",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "returns the all the allocations for a given client",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateGetAllocations::Result",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/Allocation"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
       "name": "Filecoin.StateSectorExpiration",
       "tags": [
         {
           "name": "v0"
         }
       ],
-      "description": "returns epoch at which given sector will expire",
+      "description": "Returns the epoch at which given sector will expire",
       "params": [
         {
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1986,7 +2644,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2006,13 +2670,13 @@
           "name": "v0"
         }
       ],
-      "description": "finds deadline/partition with the specified sector",
+      "description": "Finds deadline/partition with the specified sector",
       "params": [
         {
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -2028,7 +2692,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2042,19 +2712,110 @@
       "paramStructure": "by-position"
     },
     {
+      "name": "Filecoin.WalletBalance",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "Returns balance of a wallet",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.WalletBalance::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/BigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.WalletHas",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "indicates whether the given address is in the wallet",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.WalletHas::Result",
+        "required": true,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
       "name": "Filecoin.WalletList",
       "tags": [
         {
           "name": "v0"
         }
       ],
-      "description": "lists all the addresses in the wallet.",
+      "description": "Returns a list of all the addresses in the wallet.",
       "params": [],
       "result": {
         "name": "Filecoin.WalletList::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Address"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.WalletSign",
+      "tags": [
+        {
+          "name": "v0"
+        }
+      ],
+      "description": "signs the given bytes using the given address",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        {
+          "name": "message",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Base64String"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.WalletSign::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Signature"
         }
       },
       "paramStructure": "by-position"
@@ -2078,38 +2839,10 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Head": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Nonce": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "ActorState2": {
-        "type": "object",
-        "required": [
-          "Balance",
-          "Code",
-          "Head",
-          "Nonce"
-        ],
-        "properties": {
-          "Address": {
-            "$ref": "#/components/schemas/Nullable_Address"
-          },
-          "Balance": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Code": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Head": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Nonce": {
             "type": "integer",
@@ -2157,9 +2890,6 @@
       "Address": {
         "type": "string"
       },
-      "Address2": {
-        "type": "string"
-      },
       "Allocation": {
         "type": "object",
         "required": [
@@ -2178,7 +2908,7 @@
             "minimum": 0.0
           },
           "Data": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Expiration": {
             "type": "integer",
@@ -2216,7 +2946,7 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "State": {
             "$ref": "#/components/schemas/ApiState"
@@ -2273,7 +3003,7 @@
             "type": "string"
           },
           "PieceCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "PieceSize": {
             "type": "integer",
@@ -2353,10 +3083,10 @@
             "$ref": "#/components/schemas/MessageGasCost"
           },
           "Msg": {
-            "$ref": "#/components/schemas/Message2"
+            "$ref": "#/components/schemas/Message"
           },
           "MsgCid": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "MsgRct": {
             "$ref": "#/components/schemas/Nullable_Receipt"
@@ -2388,23 +3118,9 @@
         }
       },
       "Base64String": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/Inner"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "Base64String2": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/Inner"
-          },
-          {
-            "type": "null"
-          }
+        "type": [
+          "string",
+          "null"
         ]
       },
       "BeaconEntry": {
@@ -2415,24 +3131,7 @@
         ],
         "properties": {
           "Data": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "Round": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "BeaconEntry2": {
-        "type": "object",
-        "required": [
-          "Data",
-          "Round"
-        ],
-        "properties": {
-          "Data": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "Round": {
             "type": "integer",
@@ -2467,21 +3166,7 @@
       "BigInt": {
         "type": "string"
       },
-      "BigInt2": {
-        "type": "string"
-      },
       "BitField": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "type": "integer",
-          "format": "uint8",
-          "minimum": 0.0
-        }
-      },
-      "BitField2": {
         "type": [
           "array",
           "null"
@@ -2531,7 +3216,7 @@
             "format": "int64"
           },
           "Messages": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Miner": {
             "$ref": "#/components/schemas/Address"
@@ -2540,82 +3225,10 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "ParentMessageReceipts": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "ParentStateRoot": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "ParentWeight": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Parents": {
-            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
-          },
-          "Ticket": {
-            "$ref": "#/components/schemas/Nullable_Ticket"
-          },
-          "Timestamp": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "WinPoStProof": {
-            "$ref": "#/components/schemas/Nullable_Array_of_PoStProof"
-          }
-        }
-      },
-      "BlockHeader2": {
-        "type": "object",
-        "required": [
-          "BeaconEntries",
-          "ForkSignaling",
-          "Height",
-          "Messages",
-          "Miner",
-          "ParentBaseFee",
-          "ParentMessageReceipts",
-          "ParentStateRoot",
-          "ParentWeight",
-          "Parents",
-          "Timestamp",
-          "WinPoStProof"
-        ],
-        "properties": {
-          "BLSAggregate": {
-            "$ref": "#/components/schemas/Nullable_Signature"
-          },
-          "BeaconEntries": {
-            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
-          },
-          "BlockSig": {
-            "$ref": "#/components/schemas/Nullable_Signature"
-          },
-          "ElectionProof": {
-            "$ref": "#/components/schemas/Nullable_ElectionProof"
-          },
-          "ForkSignaling": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Height": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "Messages": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Miner": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "ParentBaseFee": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "ParentMessageReceipts": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "ParentStateRoot": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "ParentWeight": {
             "$ref": "#/components/schemas/BigInt"
@@ -2648,7 +3261,7 @@
             "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           },
           "Header": {
-            "$ref": "#/components/schemas/BlockHeader2"
+            "$ref": "#/components/schemas/BlockHeader"
           },
           "SecpkMessages": {
             "$ref": "#/components/schemas/Nullable_Array_of_Cid"
@@ -2676,7 +3289,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "Eproof": {
-            "$ref": "#/components/schemas/ElectionProof2"
+            "$ref": "#/components/schemas/ElectionProof"
           },
           "Messages": {
             "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
@@ -2688,7 +3301,7 @@
             "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
           },
           "Ticket": {
-            "$ref": "#/components/schemas/Ticket2"
+            "$ref": "#/components/schemas/Ticket"
           },
           "Timestamp": {
             "type": "integer",
@@ -2711,14 +3324,34 @@
           }
         }
       },
-      "Cid2": {
+      "CirculatingSupply": {
         "type": "object",
         "required": [
-          "/"
+          "FilBurnt",
+          "FilCirculating",
+          "FilLocked",
+          "FilMined",
+          "FilReserveDisbursed",
+          "FilVested"
         ],
         "properties": {
-          "/": {
-            "type": "string"
+          "FilBurnt": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "FilCirculating": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "FilLocked": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "FilMined": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "FilReserveDisbursed": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "FilVested": {
+            "$ref": "#/components/schemas/BigInt"
           }
         }
       },
@@ -2758,7 +3391,7 @@
             "minimum": 0.0
           },
           "Data": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Provider": {
             "type": "integer",
@@ -2812,23 +3445,7 @@
         ],
         "properties": {
           "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "WinCount": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "ElectionProof2": {
-        "type": "object",
-        "required": [
-          "VRFProof",
-          "WinCount"
-        ],
-        "properties": {
-          "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "WinCount": {
             "type": "integer",
@@ -2878,6 +3495,148 @@
         "format": "uint32",
         "minimum": 0.0
       },
+      "ForkUpgradeParams": {
+        "type": "object",
+        "required": [
+          "BreezeGasTampingDuration",
+          "UpgradeAssemblyHeight",
+          "UpgradeBreezeHeight",
+          "UpgradeCalicoHeight",
+          "UpgradeChocolateHeight",
+          "UpgradeClausHeight",
+          "UpgradeDragonHeight",
+          "UpgradeHyggeHeight",
+          "UpgradeHyperdriveHeight",
+          "UpgradeIgnitionHeight",
+          "UpgradeKumquatHeight",
+          "UpgradeLiftoffHeight",
+          "UpgradeLightningHeight",
+          "UpgradeNorwegianHeight",
+          "UpgradeOhSnapHeight",
+          "UpgradeOrangeHeight",
+          "UpgradePersianHeight",
+          "UpgradePhoenixHeight",
+          "UpgradeRefuelHeight",
+          "UpgradeSharkHeight",
+          "UpgradeSkyrHeight",
+          "UpgradeSmokeHeight",
+          "UpgradeTapeHeight",
+          "UpgradeThunderHeight",
+          "UpgradeTrustHeight",
+          "UpgradeTurboHeight",
+          "UpgradeWatermelonHeight"
+        ],
+        "properties": {
+          "BreezeGasTampingDuration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeAssemblyHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeBreezeHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeCalicoHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeChocolateHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeClausHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeDragonHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeHyggeHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeHyperdriveHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeIgnitionHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeKumquatHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeLiftoffHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeLightningHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeNorwegianHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeOhSnapHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeOrangeHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradePersianHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradePhoenixHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeRefuelHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeSharkHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeSkyrHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeSmokeHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeTapeHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeThunderHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeTrustHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeTurboHeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "UpgradeWatermelonHeight": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "GasTrace": {
         "type": "object",
         "required": [
@@ -2913,9 +3672,6 @@
           }
         }
       },
-      "Inner": {
-        "type": "string"
-      },
       "MarketBalance": {
         "description": "External format for returning market balance from state.",
         "type": "object",
@@ -2936,36 +3692,34 @@
         "type": "object",
         "required": [
           "From",
-          "GasFeeCap",
-          "GasLimit",
-          "GasPremium",
-          "Method",
-          "Nonce",
-          "To",
-          "Value",
-          "Version"
+          "To"
         ],
         "properties": {
           "From": {
             "$ref": "#/components/schemas/Address"
           },
           "GasFeeCap": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "GasLimit": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
           },
           "GasPremium": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "Method": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
           },
           "Nonce": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
@@ -2977,63 +3731,11 @@
             "$ref": "#/components/schemas/Address"
           },
           "Value": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "Version": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "Message2": {
-        "type": "object",
-        "required": [
-          "From",
-          "GasFeeCap",
-          "GasLimit",
-          "GasPremium",
-          "Method",
-          "Nonce",
-          "To",
-          "Value",
-          "Version"
-        ],
-        "properties": {
-          "From": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "GasFeeCap": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "GasLimit": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "GasPremium": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Method": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Nonce": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Params": {
-            "$ref": "#/components/schemas/Nullable_Base64String"
-          },
-          "To": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "Value": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Version": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
@@ -3094,32 +3796,6 @@
           }
         }
       },
-      "MessageLookup": {
-        "type": "object",
-        "required": [
-          "Height",
-          "Message",
-          "Receipt",
-          "ReturnDec",
-          "TipSet"
-        ],
-        "properties": {
-          "Height": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "Message": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Receipt": {
-            "$ref": "#/components/schemas/Receipt2"
-          },
-          "ReturnDec": true,
-          "TipSet": {
-            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
-          }
-        }
-      },
       "MessageSendSpec": {
         "type": "object",
         "required": [
@@ -3159,7 +3835,7 @@
             "minimum": 0.0
           },
           "Params": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "ParamsCodec": {
             "type": "integer",
@@ -3297,6 +3973,31 @@
           }
         }
       },
+      "MinerSectors": {
+        "type": "object",
+        "required": [
+          "Active",
+          "Faulty",
+          "Live"
+        ],
+        "properties": {
+          "Active": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Faulty": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "Live": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
       "MiningBaseInfo": {
         "type": "object",
         "required": [
@@ -3323,7 +4024,7 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "PrevBeaconEntry": {
-            "$ref": "#/components/schemas/BeaconEntry2"
+            "$ref": "#/components/schemas/BeaconEntry"
           },
           "SectorSize": {
             "type": "integer",
@@ -3335,6 +4036,46 @@
           },
           "WorkerKey": {
             "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "NetworkParams": {
+        "type": "object",
+        "required": [
+          "BlockDelaySecs",
+          "ConsensusMinerMinPower",
+          "Eip155ChainID",
+          "ForkUpgradeParams",
+          "NetworkName",
+          "PreCommitChallengeDelay",
+          "SupportedProofTypes"
+        ],
+        "properties": {
+          "BlockDelaySecs": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "ConsensusMinerMinPower": {
+            "$ref": "#/components/schemas/BigInt"
+          },
+          "Eip155ChainID": {
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          },
+          "ForkUpgradeParams": {
+            "$ref": "#/components/schemas/ForkUpgradeParams"
+          },
+          "NetworkName": {
+            "type": "string"
+          },
+          "PreCommitChallengeDelay": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SupportedProofTypes": {
+            "$ref": "#/components/schemas/int64"
           }
         }
       },
@@ -3355,21 +4096,12 @@
       "Nullable_Address": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           },
           {
             "type": "null"
           }
         ]
-      },
-      "Nullable_Array_of_AddrInfo": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/AddrInfo"
-        }
       },
       "Nullable_Array_of_Address": {
         "type": [
@@ -3377,16 +4109,7 @@
           "null"
         ],
         "items": {
-          "$ref": "#/components/schemas/Address2"
-        }
-      },
-      "Nullable_Array_of_ApiDeadline": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/ApiDeadline"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "Nullable_Array_of_Base64String": {
@@ -3425,15 +4148,6 @@
           "$ref": "#/components/schemas/ExecutionTrace"
         }
       },
-      "Nullable_Array_of_MinerPartitions": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/MinerPartitions"
-        }
-      },
       "Nullable_Array_of_PoStProof": {
         "type": [
           "array",
@@ -3450,15 +4164,6 @@
         ],
         "items": {
           "$ref": "#/components/schemas/SectorInfo"
-        }
-      },
-      "Nullable_Array_of_SectorOnChainInfo": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/SectorOnChainInfo"
         }
       },
       "Nullable_Array_of_SignedMessage": {
@@ -3534,7 +4239,7 @@
       "Nullable_Signature": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/Signature2"
+            "$ref": "#/components/schemas/Signature"
           },
           {
             "type": "null"
@@ -3596,7 +4301,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "ProofBytes": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -3623,34 +4328,7 @@
             "minimum": 0.0
           },
           "Return": {
-            "$ref": "#/components/schemas/Base64String2"
-          }
-        }
-      },
-      "Receipt2": {
-        "type": "object",
-        "required": [
-          "ExitCode",
-          "GasUsed",
-          "Return"
-        ],
-        "properties": {
-          "EventsRoot": {
-            "default": null,
-            "$ref": "#/components/schemas/Nullable_Cid"
-          },
-          "ExitCode": {
-            "type": "integer",
-            "format": "uint32",
-            "minimum": 0.0
-          },
-          "GasUsed": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Return": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -3666,7 +4344,7 @@
             "$ref": "#/components/schemas/ExitCode"
           },
           "Return": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "ReturnCodec": {
             "type": "integer",
@@ -3704,7 +4382,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorNumber": {
             "type": "integer",
@@ -3802,7 +4480,7 @@
           },
           "SealedCID": {
             "description": "`CommR`",
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorKeyCID": {
             "$ref": "#/components/schemas/Nullable_Cid"
@@ -3845,46 +4523,7 @@
             "format": "int64"
           },
           "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "SectorNumber": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "UnsealedCid": {
-            "$ref": "#/components/schemas/Nullable_Cid"
-          }
-        }
-      },
-      "SectorPreCommitInfo2": {
-        "type": "object",
-        "required": [
-          "DealIDs",
-          "Expiration",
-          "SealProof",
-          "SealRandEpoch",
-          "SealedCID",
-          "SectorNumber",
-          "UnsealedCid"
-        ],
-        "properties": {
-          "DealIDs": {
-            "$ref": "#/components/schemas/Nullable_Array_of_uint64"
-          },
-          "Expiration": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "SealProof": {
-            "$ref": "#/components/schemas/int64"
-          },
-          "SealRandEpoch": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorNumber": {
             "type": "integer",
@@ -3929,22 +4568,7 @@
         ],
         "properties": {
           "Data": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "Type": {
-            "$ref": "#/components/schemas/SignatureType"
-          }
-        }
-      },
-      "Signature2": {
-        "type": "object",
-        "required": [
-          "Data",
-          "Type"
-        ],
-        "properties": {
-          "Data": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "Type": {
             "$ref": "#/components/schemas/SignatureType"
@@ -3952,16 +4576,6 @@
         }
       },
       "SignatureType": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/SignatureType2"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "SignatureType2": {
         "description": "Signature variants for Filecoin signatures.",
         "type": "string",
         "enum": [
@@ -3981,7 +4595,7 @@
             "$ref": "#/components/schemas/Nullable_Cid"
           },
           "Message": {
-            "$ref": "#/components/schemas/Message2"
+            "$ref": "#/components/schemas/Message"
           },
           "Signature": {
             "$ref": "#/components/schemas/Signature"
@@ -3995,18 +4609,7 @@
         ],
         "properties": {
           "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
-          }
-        }
-      },
-      "Ticket2": {
-        "type": "object",
-        "required": [
-          "VRFProof"
-        ],
-        "properties": {
-          "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
