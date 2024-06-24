@@ -2,7 +2,7 @@
   "openrpc": "1.3.2",
   "info": {
     "title": "forest",
-    "version": "0.18.0"
+    "version": "0.19.0"
   },
   "methods": [
     {
@@ -50,7 +50,13 @@
         "name": "Filecoin.AuthVerify::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_String"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -126,7 +132,13 @@
         "name": "Filecoin.ChainGetParentMessages::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_ApiMessage"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/ApiMessage"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -151,7 +163,13 @@
         "name": "Filecoin.ChainGetParentReceipts::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_ApiReceipt"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/ApiReceipt"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -168,7 +186,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -176,7 +200,13 @@
         "name": "Filecoin.ChainGetMessagesInTipset::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_ApiMessage"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/ApiMessage"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -260,6 +290,45 @@
       "paramStructure": "by-position"
     },
     {
+      "name": "Filecoin.ChainStatObj",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "obj_cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        },
+        {
+          "name": "base_cid",
+          "required": false,
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Cid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.ChainStatObj::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ObjStat"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
       "name": "Filecoin.ChainGetBlockMessages",
       "tags": [
         {
@@ -311,7 +380,13 @@
         "name": "Filecoin.ChainGetPath::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_PathChange_for_Tipset"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/PathChange_for_Tipset"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -336,7 +411,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -369,7 +450,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -460,7 +547,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -485,7 +578,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -537,7 +636,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -545,7 +650,7 @@
         "name": "Filecoin.ChainTipSetWeight::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BigInt2"
+          "$ref": "#/components/schemas/BigInt"
         }
       },
       "paramStructure": "by-position"
@@ -666,7 +771,13 @@
         "name": "Filecoin.EthAccounts::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_String"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -724,7 +835,7 @@
           "name": "block_number_or_hash",
           "required": true,
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/BlockNumberOrHash"
           }
         }
       ],
@@ -763,7 +874,7 @@
           "name": "block_number_or_hash",
           "required": true,
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/BlockNumberOrHash"
           }
         }
       ],
@@ -788,7 +899,7 @@
         "name": "Filecoin.EthGasPrice::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BigInt3"
+          "$ref": "#/components/schemas/EthBigInt"
         }
       },
       "paramStructure": "by-position"
@@ -812,7 +923,7 @@
           "name": "block_param",
           "required": true,
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/BlockNumberOrHash"
           }
         }
       ],
@@ -820,7 +931,39 @@
         "name": "Filecoin.EthGetBalance::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BigInt3"
+          "$ref": "#/components/schemas/EthBigInt"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.EthGetBlockByHash",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v1"
+        }
+      ],
+      "params": [
+        {
+          "name": "block_param",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/BlockNumberOrHash"
+          }
+        },
+        {
+          "name": "full_tx_info",
+          "required": true,
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.EthGetBlockByHash::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Block"
         }
       },
       "paramStructure": "by-position"
@@ -837,7 +980,7 @@
           "name": "block_param",
           "required": true,
           "schema": {
-            "type": "string"
+            "$ref": "#/components/schemas/BlockNumberOrHash"
           }
         },
         {
@@ -853,6 +996,31 @@
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/Block"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.EthGetBlockTransactionCountByHash",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v1"
+        }
+      ],
+      "params": [
+        {
+          "name": "block_hash",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Hash"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.EthGetBlockTransactionCountByHash::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Uint64"
         }
       },
       "paramStructure": "by-position"
@@ -901,7 +1069,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -948,7 +1122,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -988,7 +1168,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1022,7 +1208,7 @@
           "name": "sender",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1037,7 +1223,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1087,7 +1279,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1102,7 +1294,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1134,7 +1332,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -1161,7 +1359,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1169,7 +1373,13 @@
         "name": "Filecoin.MpoolPending::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SignedMessage"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1186,7 +1396,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         },
         {
@@ -1202,7 +1418,13 @@
         "name": "Filecoin.MpoolSelect::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SignedMessage"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1283,14 +1505,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1315,14 +1543,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1330,7 +1564,13 @@
         "name": "Filecoin.MsigGetPending::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Transaction"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Transaction"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1347,21 +1587,33 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "start_tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         },
         {
           "name": "end_tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1369,7 +1621,7 @@
         "name": "Filecoin.MsigGetVested::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BigInt2"
+          "$ref": "#/components/schemas/BigInt"
         }
       },
       "paramStructure": "by-position"
@@ -1386,14 +1638,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1435,7 +1693,13 @@
         "name": "Filecoin.NetPeers::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_AddrInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/AddrInfo"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1644,7 +1908,13 @@
           "name": "tsk",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1702,7 +1972,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         },
         {
@@ -1718,7 +1994,13 @@
         "name": "Filecoin.StateListMessages::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Cid"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -1766,17 +2048,23 @@
       ],
       "params": [
         {
-          "name": "cid",
-          "required": true,
+          "name": "tipset_key",
+          "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         },
         {
-          "name": "tsk",
-          "required": false,
+          "name": "message_cid",
+          "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "$ref": "#/components/schemas/Cid"
           }
         }
       ],
@@ -1784,7 +2072,7 @@
         "name": "Filecoin.StateReplay::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/InvocResult"
+          "$ref": "#/components/schemas/ApiInvocResult"
         }
       },
       "paramStructure": "by-position"
@@ -1801,7 +2089,7 @@
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1817,7 +2105,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1842,7 +2136,7 @@
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -1858,7 +2152,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1883,14 +2183,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1898,7 +2204,7 @@
         "name": "Filecoin.StateAccountKey::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -1915,14 +2221,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1930,7 +2242,7 @@
         "name": "Filecoin.StateLookupID::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -1947,14 +2259,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -1964,7 +2282,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/ActorState2"
+              "$ref": "#/components/schemas/ActorState"
             },
             {
               "type": "null"
@@ -1986,14 +2304,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2018,14 +2342,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2033,7 +2363,13 @@
         "name": "Filecoin.StateMinerActiveSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SectorOnChainInfo"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -2050,7 +2386,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -2066,7 +2402,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2074,7 +2416,13 @@
         "name": "Filecoin.StateMinerPartitions::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_MinerPartitions"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/MinerPartitions"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -2091,7 +2439,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -2100,7 +2448,7 @@
           "schema": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/BitField2"
+                "$ref": "#/components/schemas/BitField"
               },
               {
                 "type": "null"
@@ -2112,7 +2460,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2120,7 +2474,13 @@
         "name": "Filecoin.StateMinerSectors::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_SectorOnChainInfo"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/SectorOnChainInfo"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -2137,14 +2497,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2169,7 +2535,7 @@
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -2185,7 +2551,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2210,14 +2582,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2242,14 +2620,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2257,7 +2641,13 @@
         "name": "Filecoin.StateMinerDeadlines::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_ApiDeadline"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/ApiDeadline"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -2274,14 +2664,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2306,14 +2702,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2321,7 +2723,7 @@
         "name": "Filecoin.StateMinerFaults::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField2"
+          "$ref": "#/components/schemas/BitField"
         }
       },
       "paramStructure": "by-position"
@@ -2338,14 +2740,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2353,7 +2761,7 @@
         "name": "Filecoin.StateMinerRecoveries::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/BitField2"
+          "$ref": "#/components/schemas/BitField"
         }
       },
       "paramStructure": "by-position"
@@ -2370,14 +2778,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2402,21 +2816,27 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "sector_pre_commit_info",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+            "$ref": "#/components/schemas/SectorPreCommitInfo"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2448,7 +2868,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2496,7 +2922,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2544,7 +2976,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2569,14 +3007,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2601,7 +3045,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2626,14 +3076,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2643,7 +3099,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/BigInt2"
+              "$ref": "#/components/schemas/BigInt"
             },
             {
               "type": "null"
@@ -2665,7 +3121,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2690,7 +3152,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2698,7 +3166,50 @@
         "name": "Filecoin.StateListMiners::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Address"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateListActors",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v0"
+        }
+      ],
+      "params": [
+        {
+          "name": "tipset_key",
+          "required": false,
+          "schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateListActors::Result",
+        "required": false,
+        "schema": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -2715,7 +3226,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2742,14 +3259,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2774,7 +3297,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2802,7 +3331,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2846,7 +3381,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -2880,7 +3421,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3031,21 +3578,27 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "sector_pre_commit_info",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/SectorPreCommitInfo2"
+            "$ref": "#/components/schemas/SectorPreCommitInfo"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3070,14 +3623,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3087,7 +3646,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/BigInt2"
+              "$ref": "#/components/schemas/BigInt"
             },
             {
               "type": "null"
@@ -3109,7 +3668,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3125,7 +3684,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3157,14 +3722,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3192,7 +3763,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3208,7 +3779,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3240,14 +3817,20 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3275,7 +3858,7 @@
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3291,7 +3874,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3316,7 +3905,7 @@
           "name": "miner_address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3332,7 +3921,13 @@
           "name": "tipset_key",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/Nullable_Array_of_Cid"
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Cid"
+            }
           }
         }
       ],
@@ -3449,7 +4044,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -3476,7 +4071,7 @@
         "schema": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/Address2"
+              "$ref": "#/components/schemas/Address"
             },
             {
               "type": "null"
@@ -3498,7 +4093,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -3523,7 +4118,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -3556,7 +4151,7 @@
         "name": "Filecoin.WalletImport::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -3573,7 +4168,13 @@
         "name": "Filecoin.WalletList::Result",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/Nullable_Array_of_Address"
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
+          }
         }
       },
       "paramStructure": "by-position"
@@ -3590,7 +4191,7 @@
           "name": "signature_type",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/SignatureType3"
+            "$ref": "#/components/schemas/SignatureType"
           }
         }
       ],
@@ -3598,7 +4199,7 @@
         "name": "Filecoin.WalletNew::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -3615,7 +4216,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -3640,7 +4241,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3655,7 +4256,7 @@
         "name": "Filecoin.WalletSign::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Signature2"
+          "$ref": "#/components/schemas/Signature"
         }
       },
       "paramStructure": "by-position"
@@ -3680,7 +4281,7 @@
         "name": "Filecoin.WalletValidateAddress::Result",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/Address2"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "paramStructure": "by-position"
@@ -3697,7 +4298,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         },
         {
@@ -3711,7 +4312,7 @@
           "name": "signature",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Signature2"
+            "$ref": "#/components/schemas/Signature"
           }
         }
       ],
@@ -3736,7 +4337,7 @@
           "name": "address",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           }
         }
       ],
@@ -3768,38 +4369,10 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Head": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Nonce": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "ActorState2": {
-        "type": "object",
-        "required": [
-          "Balance",
-          "Code",
-          "Head",
-          "Nonce"
-        ],
-        "properties": {
-          "Address": {
-            "$ref": "#/components/schemas/Nullable_Address"
-          },
-          "Balance": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Code": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Head": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Nonce": {
             "type": "integer",
@@ -3847,9 +4420,6 @@
       "Address": {
         "type": "string"
       },
-      "Address2": {
-        "type": "string"
-      },
       "Allocation": {
         "type": "object",
         "required": [
@@ -3868,7 +4438,7 @@
             "minimum": 0.0
           },
           "Data": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Expiration": {
             "type": "integer",
@@ -3906,7 +4476,7 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "Code": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "State": {
             "$ref": "#/components/schemas/ApiState"
@@ -3963,7 +4533,7 @@
             "type": "string"
           },
           "PieceCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "PieceSize": {
             "type": "integer",
@@ -4043,10 +4613,10 @@
             "$ref": "#/components/schemas/MessageGasCost"
           },
           "Msg": {
-            "$ref": "#/components/schemas/Message2"
+            "$ref": "#/components/schemas/Message"
           },
           "MsgCid": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "MsgRct": {
             "$ref": "#/components/schemas/Nullable_Receipt"
@@ -4076,10 +4646,10 @@
         ],
         "properties": {
           "Cid": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Message": {
-            "$ref": "#/components/schemas/Message2"
+            "$ref": "#/components/schemas/Message"
           }
         }
       },
@@ -4104,7 +4674,7 @@
             "minimum": 0.0
           },
           "Return": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -4137,23 +4707,9 @@
         }
       },
       "Base64String": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/Inner"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "Base64String2": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/Inner"
-          },
-          {
-            "type": "null"
-          }
+        "type": [
+          "string",
+          "null"
         ]
       },
       "BeaconEntry": {
@@ -4164,24 +4720,7 @@
         ],
         "properties": {
           "Data": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "Round": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "BeaconEntry2": {
-        "type": "object",
-        "required": [
-          "Data",
-          "Round"
-        ],
-        "properties": {
-          "Data": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "Round": {
             "type": "integer",
@@ -4216,24 +4755,7 @@
       "BigInt": {
         "type": "string"
       },
-      "BigInt2": {
-        "type": "string"
-      },
-      "BigInt3": {
-        "$ref": "#/components/schemas/BigInt"
-      },
       "BitField": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "type": "integer",
-          "format": "uint8",
-          "minimum": 0.0
-        }
-      },
-      "BitField2": {
         "type": [
           "array",
           "null"
@@ -4271,7 +4793,7 @@
         ],
         "properties": {
           "baseFeePerGas": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "difficulty": {
             "$ref": "#/components/schemas/Uint64"
@@ -4338,6 +4860,21 @@
           }
         }
       },
+      "BlockHash": {
+        "type": "object",
+        "required": [
+          "blockHash",
+          "requireCanonical"
+        ],
+        "properties": {
+          "blockHash": {
+            "$ref": "#/components/schemas/Hash"
+          },
+          "requireCanonical": {
+            "type": "boolean"
+          }
+        }
+      },
       "BlockHeader": {
         "type": "object",
         "required": [
@@ -4377,7 +4914,7 @@
             "format": "int64"
           },
           "Messages": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Miner": {
             "$ref": "#/components/schemas/Address"
@@ -4386,82 +4923,10 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "ParentMessageReceipts": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "ParentStateRoot": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "ParentWeight": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Parents": {
-            "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
-          },
-          "Ticket": {
-            "$ref": "#/components/schemas/Nullable_Ticket"
-          },
-          "Timestamp": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "WinPoStProof": {
-            "$ref": "#/components/schemas/Nullable_Array_of_PoStProof"
-          }
-        }
-      },
-      "BlockHeader2": {
-        "type": "object",
-        "required": [
-          "BeaconEntries",
-          "ForkSignaling",
-          "Height",
-          "Messages",
-          "Miner",
-          "ParentBaseFee",
-          "ParentMessageReceipts",
-          "ParentStateRoot",
-          "ParentWeight",
-          "Parents",
-          "Timestamp",
-          "WinPoStProof"
-        ],
-        "properties": {
-          "BLSAggregate": {
-            "$ref": "#/components/schemas/Nullable_Signature"
-          },
-          "BeaconEntries": {
-            "$ref": "#/components/schemas/Nullable_Array_of_BeaconEntry"
-          },
-          "BlockSig": {
-            "$ref": "#/components/schemas/Nullable_Signature"
-          },
-          "ElectionProof": {
-            "$ref": "#/components/schemas/Nullable_ElectionProof"
-          },
-          "ForkSignaling": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Height": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "Messages": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "Miner": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "ParentBaseFee": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "ParentMessageReceipts": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "ParentStateRoot": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "ParentWeight": {
             "$ref": "#/components/schemas/BigInt"
@@ -4494,7 +4959,7 @@
             "$ref": "#/components/schemas/Nullable_Array_of_Cid"
           },
           "Header": {
-            "$ref": "#/components/schemas/BlockHeader2"
+            "$ref": "#/components/schemas/BlockHeader"
           },
           "SecpkMessages": {
             "$ref": "#/components/schemas/Nullable_Array_of_Cid"
@@ -4520,6 +4985,36 @@
           }
         }
       },
+      "BlockNumber": {
+        "type": "object",
+        "required": [
+          "blockNumber"
+        ],
+        "properties": {
+          "blockNumber": {
+            "$ref": "#/components/schemas/Int64"
+          }
+        }
+      },
+      "BlockNumberOrHash": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/components/schemas/Int64"
+          },
+          {
+            "$ref": "#/components/schemas/Hash"
+          },
+          {
+            "$ref": "#/components/schemas/BlockNumber"
+          },
+          {
+            "$ref": "#/components/schemas/BlockHash"
+          }
+        ]
+      },
       "BlockTemplate": {
         "type": "object",
         "required": [
@@ -4541,7 +5036,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "Eproof": {
-            "$ref": "#/components/schemas/ElectionProof2"
+            "$ref": "#/components/schemas/ElectionProof"
           },
           "Messages": {
             "$ref": "#/components/schemas/Nullable_Array_of_SignedMessage"
@@ -4553,7 +5048,7 @@
             "$ref": "#/components/schemas/NonEmpty_Array_of_Cid"
           },
           "Ticket": {
-            "$ref": "#/components/schemas/Ticket2"
+            "$ref": "#/components/schemas/Ticket"
           },
           "Timestamp": {
             "type": "integer",
@@ -4602,17 +5097,6 @@
         }
       },
       "Cid": {
-        "type": "object",
-        "required": [
-          "/"
-        ],
-        "properties": {
-          "/": {
-            "type": "string"
-          }
-        }
-      },
-      "Cid2": {
         "type": "object",
         "required": [
           "/"
@@ -4690,7 +5174,7 @@
             "minimum": 0.0
           },
           "Data": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Provider": {
             "type": "integer",
@@ -4744,23 +5228,7 @@
         ],
         "properties": {
           "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "WinCount": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "ElectionProof2": {
-        "type": "object",
-        "required": [
-          "VRFProof",
-          "WinCount"
-        ],
-        "properties": {
-          "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "WinCount": {
             "type": "integer",
@@ -4769,6 +5237,9 @@
         }
       },
       "EthAddress": {
+        "type": "string"
+      },
+      "EthBigInt": {
         "type": "string"
       },
       "EthBytes": {
@@ -5031,45 +5502,21 @@
         ],
         "properties": {
           "BlsMessages": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Header": {
-            "$ref": "#/components/schemas/BlockHeader2"
+            "$ref": "#/components/schemas/BlockHeader"
           },
           "SecpkMessages": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           }
         }
       },
       "Hash": {
         "type": "string"
       },
-      "Inner": {
-        "type": "string"
-      },
       "Int64": {
         "type": "string"
-      },
-      "InvocResult": {
-        "type": "object",
-        "required": [
-          "Msg",
-          "MsgRct"
-        ],
-        "properties": {
-          "Error": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "Msg": {
-            "$ref": "#/components/schemas/Message2"
-          },
-          "MsgRct": {
-            "$ref": "#/components/schemas/Nullable_Receipt"
-          }
-        }
       },
       "KeyInfo": {
         "type": "object",
@@ -5079,7 +5526,7 @@
         ],
         "properties": {
           "PrivateKey": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "Type": {
             "$ref": "#/components/schemas/SignatureType"
@@ -5106,36 +5553,34 @@
         "type": "object",
         "required": [
           "From",
-          "GasFeeCap",
-          "GasLimit",
-          "GasPremium",
-          "Method",
-          "Nonce",
-          "To",
-          "Value",
-          "Version"
+          "To"
         ],
         "properties": {
           "From": {
             "$ref": "#/components/schemas/Address"
           },
           "GasFeeCap": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "GasLimit": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
           },
           "GasPremium": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "Method": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
           },
           "Nonce": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
@@ -5147,63 +5592,11 @@
             "$ref": "#/components/schemas/Address"
           },
           "Value": {
+            "default": "0",
             "$ref": "#/components/schemas/BigInt"
           },
           "Version": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          }
-        }
-      },
-      "Message2": {
-        "type": "object",
-        "required": [
-          "From",
-          "GasFeeCap",
-          "GasLimit",
-          "GasPremium",
-          "Method",
-          "Nonce",
-          "To",
-          "Value",
-          "Version"
-        ],
-        "properties": {
-          "From": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "GasFeeCap": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "GasLimit": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "GasPremium": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Method": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Nonce": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Params": {
-            "$ref": "#/components/schemas/Nullable_Base64String"
-          },
-          "To": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "Value": {
-            "$ref": "#/components/schemas/BigInt"
-          },
-          "Version": {
+            "default": 0,
             "type": "integer",
             "format": "uint64",
             "minimum": 0.0
@@ -5279,10 +5672,10 @@
             "format": "int64"
           },
           "Message": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "Receipt": {
-            "$ref": "#/components/schemas/Receipt2"
+            "$ref": "#/components/schemas/Receipt"
           },
           "ReturnDec": true,
           "TipSet": {
@@ -5329,7 +5722,7 @@
             "minimum": 0.0
           },
           "Params": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "ParamsCodec": {
             "type": "integer",
@@ -5518,7 +5911,7 @@
             "$ref": "#/components/schemas/BigInt"
           },
           "PrevBeaconEntry": {
-            "$ref": "#/components/schemas/BeaconEntry2"
+            "$ref": "#/components/schemas/BeaconEntry"
           },
           "SectorSize": {
             "type": "integer",
@@ -5752,21 +6145,12 @@
       "Nullable_Address": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address"
           },
           {
             "type": "null"
           }
         ]
-      },
-      "Nullable_Array_of_AddrInfo": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/AddrInfo"
-        }
       },
       "Nullable_Array_of_Address": {
         "type": [
@@ -5774,34 +6158,7 @@
           "null"
         ],
         "items": {
-          "$ref": "#/components/schemas/Address2"
-        }
-      },
-      "Nullable_Array_of_ApiDeadline": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/ApiDeadline"
-        }
-      },
-      "Nullable_Array_of_ApiMessage": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/ApiMessage"
-        }
-      },
-      "Nullable_Array_of_ApiReceipt": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/ApiReceipt"
+          "$ref": "#/components/schemas/Address"
         }
       },
       "Nullable_Array_of_Base64String": {
@@ -5849,24 +6206,6 @@
           "$ref": "#/components/schemas/Message"
         }
       },
-      "Nullable_Array_of_MinerPartitions": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/MinerPartitions"
-        }
-      },
-      "Nullable_Array_of_PathChange_for_Tipset": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/PathChange_for_Tipset"
-        }
-      },
       "Nullable_Array_of_PoStProof": {
         "type": [
           "array",
@@ -5885,15 +6224,6 @@
           "$ref": "#/components/schemas/SectorInfo"
         }
       },
-      "Nullable_Array_of_SectorOnChainInfo": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/SectorOnChainInfo"
-        }
-      },
       "Nullable_Array_of_SignedMessage": {
         "type": [
           "array",
@@ -5903,15 +6233,6 @@
           "$ref": "#/components/schemas/SignedMessage"
         }
       },
-      "Nullable_Array_of_String": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "type": "string"
-        }
-      },
       "Nullable_Array_of_SyncState": {
         "type": [
           "array",
@@ -5919,15 +6240,6 @@
         ],
         "items": {
           "$ref": "#/components/schemas/SyncState"
-        }
-      },
-      "Nullable_Array_of_Transaction": {
-        "type": [
-          "array",
-          "null"
-        ],
-        "items": {
-          "$ref": "#/components/schemas/Transaction"
         }
       },
       "Nullable_Array_of_uint64": {
@@ -6001,7 +6313,7 @@
       "Nullable_Signature": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/Signature2"
+            "$ref": "#/components/schemas/Signature"
           },
           {
             "type": "null"
@@ -6033,6 +6345,25 @@
             "type": "null"
           }
         ]
+      },
+      "ObjStat": {
+        "type": "object",
+        "required": [
+          "Links",
+          "Size"
+        ],
+        "properties": {
+          "Links": {
+            "type": "integer",
+            "format": "uint",
+            "minimum": 0.0
+          },
+          "Size": {
+            "type": "integer",
+            "format": "uint",
+            "minimum": 0.0
+          }
+        }
       },
       "PathChange_for_Tipset": {
         "oneOf": [
@@ -6113,7 +6444,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "ProofBytes": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -6173,34 +6504,7 @@
             "minimum": 0.0
           },
           "Return": {
-            "$ref": "#/components/schemas/Base64String2"
-          }
-        }
-      },
-      "Receipt2": {
-        "type": "object",
-        "required": [
-          "ExitCode",
-          "GasUsed",
-          "Return"
-        ],
-        "properties": {
-          "EventsRoot": {
-            "default": null,
-            "$ref": "#/components/schemas/Nullable_Cid"
-          },
-          "ExitCode": {
-            "type": "integer",
-            "format": "uint32",
-            "minimum": 0.0
-          },
-          "GasUsed": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "Return": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -6216,7 +6520,7 @@
             "$ref": "#/components/schemas/ExitCode"
           },
           "Return": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "ReturnCodec": {
             "type": "integer",
@@ -6254,7 +6558,7 @@
             "$ref": "#/components/schemas/int64"
           },
           "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorNumber": {
             "type": "integer",
@@ -6352,7 +6656,7 @@
           },
           "SealedCID": {
             "description": "`CommR`",
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorKeyCID": {
             "$ref": "#/components/schemas/Nullable_Cid"
@@ -6395,46 +6699,7 @@
             "format": "int64"
           },
           "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
-          },
-          "SectorNumber": {
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0.0
-          },
-          "UnsealedCid": {
-            "$ref": "#/components/schemas/Nullable_Cid"
-          }
-        }
-      },
-      "SectorPreCommitInfo2": {
-        "type": "object",
-        "required": [
-          "DealIDs",
-          "Expiration",
-          "SealProof",
-          "SealRandEpoch",
-          "SealedCID",
-          "SectorNumber",
-          "UnsealedCid"
-        ],
-        "properties": {
-          "DealIDs": {
-            "$ref": "#/components/schemas/Nullable_Array_of_uint64"
-          },
-          "Expiration": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "SealProof": {
-            "$ref": "#/components/schemas/int64"
-          },
-          "SealRandEpoch": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "SealedCID": {
-            "$ref": "#/components/schemas/Cid2"
+            "$ref": "#/components/schemas/Cid"
           },
           "SectorNumber": {
             "type": "integer",
@@ -6485,22 +6750,7 @@
         ],
         "properties": {
           "Data": {
-            "$ref": "#/components/schemas/Base64String2"
-          },
-          "Type": {
-            "$ref": "#/components/schemas/SignatureType"
-          }
-        }
-      },
-      "Signature2": {
-        "type": "object",
-        "required": [
-          "Data",
-          "Type"
-        ],
-        "properties": {
-          "Data": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "Type": {
             "$ref": "#/components/schemas/SignatureType"
@@ -6508,32 +6758,12 @@
         }
       },
       "SignatureType": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/SignatureType2"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "SignatureType2": {
         "description": "Signature variants for Filecoin signatures.",
         "type": "string",
         "enum": [
           "Secp256k1",
           "Bls",
           "Delegated"
-        ]
-      },
-      "SignatureType3": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/SignatureType2"
-          },
-          {
-            "type": "string"
-          }
         ]
       },
       "SignedMessage": {
@@ -6547,7 +6777,7 @@
             "$ref": "#/components/schemas/Nullable_Cid"
           },
           "Message": {
-            "$ref": "#/components/schemas/Message2"
+            "$ref": "#/components/schemas/Message"
           },
           "Signature": {
             "$ref": "#/components/schemas/Signature"
@@ -6596,18 +6826,7 @@
         ],
         "properties": {
           "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
-          }
-        }
-      },
-      "Ticket2": {
-        "type": "object",
-        "required": [
-          "VRFProof"
-        ],
-        "properties": {
-          "VRFProof": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           }
         }
       },
@@ -6658,7 +6877,7 @@
             "minimum": 0.0
           },
           "Params": {
-            "$ref": "#/components/schemas/Base64String2"
+            "$ref": "#/components/schemas/Base64String"
           },
           "To": {
             "$ref": "#/components/schemas/Address"
@@ -6736,19 +6955,19 @@
             "$ref": "#/components/schemas/EthBytes"
           },
           "maxFeePerGas": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "maxPriorityFeePerGas": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "nonce": {
             "$ref": "#/components/schemas/Uint64"
           },
           "r": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "s": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "to": {
             "anyOf": [
@@ -6767,10 +6986,10 @@
             "$ref": "#/components/schemas/Uint64"
           },
           "v": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           },
           "value": {
-            "$ref": "#/components/schemas/BigInt3"
+            "$ref": "#/components/schemas/EthBigInt"
           }
         }
       },
