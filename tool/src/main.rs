@@ -19,6 +19,7 @@ enum Args {
     Openrpc(Openrpc),
 }
 
+/// Subommands related to processing OpenRPC documents.
 #[derive(Parser)]
 enum Openrpc {
     /// Print the following to stderr:
@@ -37,6 +38,8 @@ enum Openrpc {
     /// Print a summary of semantic differences between the `left` and `right`
     /// OpenRPC schemas.
     Diff { left: PathBuf, right: PathBuf },
+    /// Interpret `select` as a table of methods to include in `openrpc`, outputting
+    /// a new schema with only the selected methods.
     Select {
         openrpc: PathBuf,
         select: PathBuf,
