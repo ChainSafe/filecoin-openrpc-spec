@@ -17,6 +17,12 @@ use std::{
 enum Args {
     #[command(subcommand)]
     Openrpc(Openrpc),
+    /// Interpret stdin as a `delimter`-separated series of lines, with a header,
+    /// and print JSON.
+    Csv2Json {
+        #[arg(short, long, default_value_t = Char(AsciiChar::Tab))]
+        delimiter: Char,
+    },
 }
 
 /// Subommands related to processing OpenRPC documents.
@@ -53,8 +59,24 @@ enum Openrpc {
 }
 
 fn main() -> anyhow::Result<()> {
-    let Args::Openrpc(args) = Args::parse();
-    match args {
+    let openrpc = match Args::parse() {
+        Args::Openrpc(subcommand) => subcommand,
+        Args::Csv2Json {
+            delimiter: Char(delimiter),
+        } => {
+            let mut records = csv::ReaderBuilder::new()
+                .delimiter(delimiter.as_byte())
+                .from_reader(io::stdin())
+                .deserialize::<BTreeMap<String, String>>()
+                .collect::<Result<Vec<_>, _>>()?;
+            for record in &mut records {
+                record.retain(|_k, v| !v.is_empty())
+            }
+            serde_json::to_writer_pretty(io::stdout(), &records)?;
+            return Ok(());
+        }
+    };
+    match openrpc {
         Openrpc::ReportErrors { path } => {
             let document = load_json::<OpenRPC>(path)?;
             let methods = resolve_within(document)?.methods;
@@ -178,4 +200,24 @@ enum InclusionDirective {
     Discussion,
     Include,
     Exclude,
+}
+
+use ascii::AsciiChar;
+use std::{fmt, str::FromStr};
+
+#[derive(Clone)]
+struct Char(AsciiChar);
+
+impl FromStr for Char {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Self(AsciiChar::from_ascii(char::from_str(s)?)?))
+    }
+}
+
+impl fmt::Display for Char {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
 }
