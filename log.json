@@ -1,0 +1,14 @@
+{
+    "filter": "app=info",
+    "format": {
+        "formatter": {
+            "json": {}
+        }
+    },
+    "writer": {
+        "file": {
+            "path": "log.ignoreme",
+            "behaviour": "truncate"
+        }
+    }
+}

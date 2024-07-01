@@ -1,5 +1,8 @@
 mod gc;
+#[allow(unused)]
+mod jsonrpc_types;
 mod openrpc_diff;
+mod proxy;
 
 use anyhow::{bail, Context as _};
 use ascii::AsciiChar;
@@ -42,10 +45,15 @@ enum Openrpc {
     /// - links, runtime expressions
     /// - component keys are idents
     /// - error codes are unique
-    Validate { path: PathBuf },
+    Validate {
+        path: PathBuf,
+    },
     /// Print a summary of semantic differences between the `left` and `right`
     /// OpenRPC schemas.
-    Diff { left: PathBuf, right: PathBuf },
+    Diff {
+        left: PathBuf,
+        right: PathBuf,
+    },
     /// Interpret `select` as a table of methods to include in `openrpc`, outputting
     /// a new schema with only the selected methods.
     Select {
@@ -58,6 +66,7 @@ enum Openrpc {
         #[arg(long)]
         overwrite_version: Option<String>,
     },
+    Proxy(proxy::Args),
 }
 
 fn main() -> anyhow::Result<()> {
@@ -175,6 +184,11 @@ fn main() -> anyhow::Result<()> {
             serde_json::to_writer_pretty(io::stdout(), &openrpc)?;
             Ok(())
         }
+        Openrpc::Proxy(args) => tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .context("couldn't start async runtime")?
+            .block_on(proxy::main(args)),
     }
 }
 
