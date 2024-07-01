@@ -48,7 +48,7 @@
       ],
       "result": {
         "name": "Filecoin.AuthVerify::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -130,7 +130,7 @@
       ],
       "result": {
         "name": "Filecoin.ChainGetParentMessages::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -161,7 +161,7 @@
       ],
       "result": {
         "name": "Filecoin.ChainGetParentReceipts::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -184,7 +184,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -198,7 +198,7 @@
       ],
       "result": {
         "name": "Filecoin.ChainGetMessagesInTipset::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -229,7 +229,7 @@
       ],
       "result": {
         "name": "Filecoin.ChainExport::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "string",
@@ -306,7 +306,7 @@
         },
         {
           "name": "base_cid",
-          "required": false,
+          "required": true,
           "schema": {
             "anyOf": [
               {
@@ -378,7 +378,7 @@
       ],
       "result": {
         "name": "Filecoin.ChainGetPath::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -409,7 +409,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -448,7 +448,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -479,7 +479,7 @@
       "params": [],
       "result": {
         "name": "Filecoin.ChainGetGenesis::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -545,7 +545,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -576,7 +576,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -634,7 +634,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -769,7 +769,7 @@
       "params": [],
       "result": {
         "name": "Filecoin.EthAccounts::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -1067,7 +1067,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1106,7 +1106,7 @@
         },
         {
           "name": "spec",
-          "required": false,
+          "required": true,
           "schema": {
             "anyOf": [
               {
@@ -1120,7 +1120,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1166,7 +1166,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1221,7 +1221,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1292,7 +1292,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1306,7 +1306,7 @@
       ],
       "result": {
         "name": "Filecoin.MinerGetBaseInfo::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -1357,7 +1357,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1371,7 +1371,7 @@
       ],
       "result": {
         "name": "Filecoin.MpoolPending::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -1394,7 +1394,7 @@
       "params": [
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1416,7 +1416,7 @@
       ],
       "result": {
         "name": "Filecoin.MpoolSelect::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -1471,7 +1471,7 @@
         },
         {
           "name": "spec",
-          "required": false,
+          "required": true,
           "schema": {
             "anyOf": [
               {
@@ -1510,7 +1510,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1548,7 +1548,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1562,7 +1562,7 @@
       ],
       "result": {
         "name": "Filecoin.MsigGetPending::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -1592,7 +1592,7 @@
         },
         {
           "name": "start_tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1605,7 +1605,7 @@
         },
         {
           "name": "end_tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1643,7 +1643,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1691,7 +1691,7 @@
       "params": [],
       "result": {
         "name": "Filecoin.NetPeers::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -1906,7 +1906,7 @@
         },
         {
           "name": "tsk",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1970,7 +1970,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -1992,7 +1992,7 @@
       ],
       "result": {
         "name": "Filecoin.StateListMessages::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -2049,7 +2049,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2103,7 +2103,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2150,7 +2150,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2188,7 +2188,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2226,7 +2226,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2264,7 +2264,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2278,7 +2278,7 @@
       ],
       "result": {
         "name": "Filecoin.StateGetActor::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -2309,7 +2309,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2347,7 +2347,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2361,7 +2361,7 @@
       ],
       "result": {
         "name": "Filecoin.StateMinerActiveSectors::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -2400,7 +2400,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2414,7 +2414,7 @@
       ],
       "result": {
         "name": "Filecoin.StateMinerPartitions::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -2444,7 +2444,7 @@
         },
         {
           "name": "sectors",
-          "required": false,
+          "required": true,
           "schema": {
             "anyOf": [
               {
@@ -2458,7 +2458,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2472,7 +2472,7 @@
       ],
       "result": {
         "name": "Filecoin.StateMinerSectors::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -2502,7 +2502,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2549,7 +2549,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2587,7 +2587,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2625,7 +2625,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2639,7 +2639,7 @@
       ],
       "result": {
         "name": "Filecoin.StateMinerDeadlines::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -2669,7 +2669,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2707,7 +2707,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2745,7 +2745,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2783,7 +2783,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2828,7 +2828,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2866,7 +2866,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2920,7 +2920,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -2974,7 +2974,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3012,7 +3012,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3043,7 +3043,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3081,7 +3081,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3095,7 +3095,7 @@
       ],
       "result": {
         "name": "Filecoin.StateVerifiedClientStatus::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -3119,7 +3119,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3150,7 +3150,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3164,7 +3164,7 @@
       ],
       "result": {
         "name": "Filecoin.StateListMiners::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -3187,7 +3187,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3201,7 +3201,7 @@
       ],
       "result": {
         "name": "Filecoin.StateListActors::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",
@@ -3224,7 +3224,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3264,7 +3264,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3295,7 +3295,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3329,7 +3329,7 @@
       "params": [
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3379,7 +3379,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3419,7 +3419,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3441,7 +3441,7 @@
       "paramStructure": "by-position"
     },
     {
-      "name": "Filecoin.StateWaitMsg",
+      "name": "Filecoin.StateWaitMsgV0",
       "tags": [
         {
           "$ref": "#/components/tags/v0"
@@ -3461,6 +3461,54 @@
           "schema": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      ],
+      "result": {
+        "name": "Filecoin.StateWaitMsgV0::Result",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MessageLookup"
+        }
+      },
+      "paramStructure": "by-position"
+    },
+    {
+      "name": "Filecoin.StateWaitMsg",
+      "tags": [
+        {
+          "$ref": "#/components/tags/v1"
+        }
+      ],
+      "params": [
+        {
+          "name": "message_cid",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Cid"
+          }
+        },
+        {
+          "name": "confidence",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "look_back_limit",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "allow_replaced",
+          "required": true,
+          "schema": {
+            "type": "boolean"
           }
         }
       ],
@@ -3548,7 +3596,7 @@
         },
         {
           "name": "save_to_file",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "string",
@@ -3590,7 +3638,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3628,7 +3676,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3642,7 +3690,7 @@
       ],
       "result": {
         "name": "Filecoin.StateVerifierStatus::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -3682,7 +3730,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3696,7 +3744,7 @@
       ],
       "result": {
         "name": "Filecoin.StateGetClaim::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -3727,7 +3775,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3777,7 +3825,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3791,7 +3839,7 @@
       ],
       "result": {
         "name": "Filecoin.StateGetAllocation::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -3822,7 +3870,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3872,7 +3920,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -3919,7 +3967,7 @@
         },
         {
           "name": "tipset_key",
-          "required": false,
+          "required": true,
           "schema": {
             "type": [
               "array",
@@ -4067,7 +4115,7 @@
       "params": [],
       "result": {
         "name": "Filecoin.WalletDefaultAddress::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "anyOf": [
             {
@@ -4166,7 +4214,7 @@
       "params": [],
       "result": {
         "name": "Filecoin.WalletList::Result",
-        "required": false,
+        "required": true,
         "schema": {
           "type": [
             "array",

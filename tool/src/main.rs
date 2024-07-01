@@ -1,13 +1,18 @@
 mod gc;
+#[allow(unused)]
+mod jsonrpc_types;
 mod openrpc_diff;
+mod proxy;
 
-use anyhow::Context as _;
+use anyhow::{bail, Context as _};
+use ascii::AsciiChar;
 use clap::Parser;
 use itertools::Itertools as _;
-use openrpc_types::{resolve_within, OpenRPC};
+use openrpc_types::resolve_within;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, BTreeSet},
+    fmt,
     fs::File,
     io,
     path::{Path, PathBuf},
@@ -19,7 +24,7 @@ enum Args {
     Openrpc(Openrpc),
     /// Interpret stdin as a `delimter`-separated series of lines, with a header,
     /// and print JSON.
-    Csv2Json {
+    Csv2json {
         #[arg(short, long, default_value_t = Char(AsciiChar::Tab))]
         delimiter: Char,
     },
@@ -28,10 +33,10 @@ enum Args {
 /// Subommands related to processing OpenRPC documents.
 #[derive(Parser)]
 enum Openrpc {
-    /// Print the following to stderr:
-    /// - duplicate method names
-    /// - duplicate parameter names
-    /// - bad optional parameters
+    /// Validates that:
+    /// - method names are unique
+    /// - parameter names are unique
+    /// - there are no optional parameters
     ///
     /// Does not validate anything else, including:
     /// - that example pairings match schemas
@@ -40,10 +45,15 @@ enum Openrpc {
     /// - links, runtime expressions
     /// - component keys are idents
     /// - error codes are unique
-    ReportErrors { path: PathBuf },
+    Validate {
+        path: PathBuf,
+    },
     /// Print a summary of semantic differences between the `left` and `right`
     /// OpenRPC schemas.
-    Diff { left: PathBuf, right: PathBuf },
+    Diff {
+        left: PathBuf,
+        right: PathBuf,
+    },
     /// Interpret `select` as a table of methods to include in `openrpc`, outputting
     /// a new schema with only the selected methods.
     Select {
@@ -56,12 +66,13 @@ enum Openrpc {
         #[arg(long)]
         overwrite_version: Option<String>,
     },
+    Proxy(proxy::Args),
 }
 
 fn main() -> anyhow::Result<()> {
     let openrpc = match Args::parse() {
         Args::Openrpc(subcommand) => subcommand,
-        Args::Csv2Json {
+        Args::Csv2json {
             delimiter: Char(delimiter),
         } => {
             let mut records = csv::ReaderBuilder::new()
@@ -77,53 +88,52 @@ fn main() -> anyhow::Result<()> {
         }
     };
     match openrpc {
-        Openrpc::ReportErrors { path } => {
-            let document = load_json::<OpenRPC>(path)?;
-            let methods = resolve_within(document)?.methods;
-            if let Ok(dups) = nunny::Vec::new(
-                methods
+        Openrpc::Validate { path } => {
+            let mut errors = vec![];
+            let document = resolve_within(load_json(path)?)?;
+            errors.extend(
+                document
+                    .methods
                     .iter()
                     .map(|it| it.name.as_str())
                     .duplicates()
-                    .collect(),
-            ) {
-                eprintln!(
-                    "the following method names are duplicated: {}",
-                    dups.join(", ")
-                )
-            };
-
-            for method in &methods {
-                if let Ok(dups) = nunny::Vec::new(
+                    .map(|it| format!("duplicate method name {}", it)),
+            );
+            for method in &document.methods {
+                errors.extend(
                     method
                         .params
                         .iter()
                         .map(|it| it.name.as_str())
                         .duplicates()
-                        .collect(),
-                ) {
-                    eprintln!(
-                        "the following parameter names on method {} are duplicated: {}",
-                        method.name,
-                        dups.join(", ")
-                    )
-                }
-                if let Some((ix, name)) = method.params.iter().enumerate().find_map(|(ix, it)| {
-                    (!it.required.unwrap_or_default()).then_some((ix, it.name.as_str()))
-                }) {
-                    if let Ok(after) = nunny::Vec::new(
-                        method.params[ix..]
-                            .iter()
-                            .filter(|it| it.required.unwrap_or_default())
-                            .map(|it| it.name.as_str())
-                            .collect(),
-                    ) {
-                        eprintln!("the following required parameters on method {} follow the optional parameter {}: {}", method.name, name, after.join(", "))
-                    }
-                }
+                        .map(|it| {
+                            format!("duplicate parameter name {} on method {}", it, method.name)
+                        }),
+                );
+                errors.extend(
+                    method
+                        .params
+                        .iter()
+                        .filter(|it| !it.required.unwrap_or_default())
+                        .map(|it| {
+                            format!(
+                                "non-required parameters are forbidden by the FIP, \
+                                 but parameter {} on method {} is not required",
+                                it.name, method.name
+                            )
+                        }),
+                )
             }
 
-            Ok(())
+            match errors.len() {
+                0 => Ok(()),
+                n => {
+                    for error in errors {
+                        eprintln!("{}", error);
+                    }
+                    bail!("found {} errors", n)
+                }
+            }
         }
         Openrpc::Diff { left, right } => {
             let summary = openrpc_diff::diff(load_json(left)?, load_json(right)?)?;
@@ -174,6 +184,11 @@ fn main() -> anyhow::Result<()> {
             serde_json::to_writer_pretty(io::stdout(), &openrpc)?;
             Ok(())
         }
+        Openrpc::Proxy(args) => tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .context("couldn't start async runtime")?
+            .block_on(proxy::main(args)),
     }
 }
 
@@ -183,7 +198,7 @@ fn load_json<T: DeserializeOwned>(path: impl AsRef<Path>) -> anyhow::Result<T> {
             &mut serde_json::Deserializer::from_reader(File::open(path)?),
         )?)
     }
-    imp::<T>(path.as_ref())
+    imp(path.as_ref())
         .with_context(|| format!("couldn't load json from file {}", path.as_ref().display()))
 }
 
@@ -202,13 +217,10 @@ enum InclusionDirective {
     Exclude,
 }
 
-use ascii::AsciiChar;
-use std::{fmt, str::FromStr};
-
 #[derive(Clone)]
 struct Char(AsciiChar);
 
-impl FromStr for Char {
+impl std::str::FromStr for Char {
     type Err = anyhow::Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
